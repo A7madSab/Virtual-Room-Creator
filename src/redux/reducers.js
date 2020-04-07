@@ -1,4 +1,3 @@
-
 import { CREATE_PROJECT, CREATE_PROJECT_ERROR } from "./actions"
 const InitalProjectState = [
     { id: 1, title: "Garage", content: "Dolor adipisicing tempor dolore ut cillum quis sunt ipsum." },
