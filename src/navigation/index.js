@@ -10,7 +10,7 @@ import Dashboard from "../screens/Dashboard"
 import CreateProject from "../screens/CreateProject"
 import ProjectDetail from "../screens/ProjectDetail"
 
-function Navigation() {
+const Navigation = () => {
     return (
         <BrowserRouter>
             <NavBar />
@@ -22,7 +22,7 @@ function Navigation() {
                 <Route exact path="/landingPage" component={landingPage} />
                 <Route exact path="/:id" component={ProjectDetail} />
             </Switch>
-        </BrowserRouter>
+        </BrowserRouter >
     )
 }
 

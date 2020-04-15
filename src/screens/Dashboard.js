@@ -2,9 +2,6 @@ import React from "react"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import { connect } from "react-redux"
-import { firebaseConnect } from "react-redux-firebase"
-import { compose } from "redux"
-
 
 import ProjectThumbnail from "../components/ProjectThumbnail"
 
@@ -28,9 +25,4 @@ const mapStateToProps = ({ projects }) => ({
     projects
 })
 
-export default compose(
-    connect(mapStateToProps),
-    firebaseConnect([
-        { collection: "project" }
-    ])
-)(Dashboard)
+export default connect(mapStateToProps)(Dashboard)
