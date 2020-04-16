@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 
 import Grid from "@material-ui/core/Grid"
 import Card from "@material-ui/core/Card"
@@ -8,32 +8,41 @@ import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
 import Typography from "@material-ui/core/Typography"
 
-const SignIn = () => {
+import { signIn } from "../redux/actions"
+
+import { connect } from "react-redux"
+
+const SignIn = ({ user, signIn, error }) => {
     const [signInFrom, setSignInForm] = useState({ email: "", password: "" })
-    const handleOnSignInClick = () => console.log("signInFrom", signInFrom)
+
+    if (user) {
+        return <Redirect to="/" />
+    }
+
     return (
-        <Grid container alignItems="center" justify="center" >
-            <Card>
+        <Grid style={{ height: "75vh" }} container alignItems="center" justify="center" >
+            <Card style={{ minWidth: "400px" }}>
                 <CardContent>
                     <Grid container direction="column" justify="center">
-                        <Typography variant="h3" color="primary">Sign In</Typography>
+                        <Typography align="center" variant="h3" color="primary">Sign In</Typography>
 
                         <TextField type="e-mail" label="E-mail" value={signInFrom.email} onChange={e => setSignInForm({ ...signInFrom, email: e.target.value })} />
                         <TextField type="password" label="Password" value={signInFrom.password} onChange={e => setSignInForm({ ...signInFrom, password: e.target.value })} />
 
-                        <Grid container direction="row">
+                        <Button style={{ marginTop: 15 }} size="small" variant="contained" color="primary" onClick={() => signIn(signInFrom)}>Sign In</Button>
+
+                        {error ? <Typography style={{ fontSize: 12, paddingTop: 10 }} align="center" color="error">{error}</Typography> : null}
+
+                        <Grid container direction="row" justify="center" alignItems="center">
                             <Typography display="inline" variant="body1">
                                 You Dont have an account?
-                                </Typography>
+                            </Typography>
                             <Link to="/signup">
                                 <Button>
                                     Sign Up
-                                    </Button>
+                                </Button>
                             </Link>
                         </Grid>
-
-                        <Button size="small" onClick={handleOnSignInClick}>Sign In</Button>
-                        <Button size="small" variant="contained" color="primary">Sign In With Google</Button>
                     </Grid>
                 </CardContent>
             </Card>
@@ -41,4 +50,13 @@ const SignIn = () => {
     )
 }
 
-export default SignIn
+const mapStateToProps = ({ auth }) => ({
+    user: auth.user,
+    error: auth.error
+})
+
+const mapDispatchToProps = dispatch => ({
+    signIn: user => dispatch(signIn(user))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

@@ -7,14 +7,16 @@ import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
 import Typography from "@material-ui/core/Typography"
 
+import { Redirect } from "react-router-dom"
 import { createProject } from "../redux/actions"
 import { connect } from "react-redux"
 
-const CreateProject = ({ createProject }) => {
+const CreateProject = ({ user, createProject }) => {
     const [project, setProject] = useState({ title: "", content: "" })
-    const handleOnCreateProjectClick = () => {
-        // console.log("project", project)
-        createProject(project)
+    const handleOnCreateProjectClick = () => { createProject(project) }
+
+    if (!user) {
+        return <Redirect to="/" />
     }
     return (
         <Grid container alignItems="center" justify="center" >
@@ -34,8 +36,12 @@ const CreateProject = ({ createProject }) => {
     )
 }
 
-const mapDispatchToProps = dispatch => ({
-    createProject: project => dispatch(createProject(project))
+const mapStateToProps = ({ auth }) => ({
+    user: auth.user,
 })
 
-export default connect(null, mapDispatchToProps)(CreateProject)
+const mapDispatchToProps = dispatch => ({
+    createProject: project => (createProject(project))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateProject)

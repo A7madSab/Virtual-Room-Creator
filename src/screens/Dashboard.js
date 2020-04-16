@@ -3,25 +3,33 @@ import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import { connect } from "react-redux"
 
+import { Redirect } from "react-router-dom"
+
 import ProjectThumbnail from "../components/ProjectThumbnail"
 
-const Dashboard = ({ projects }) => (
-    <Grid container direction="column" >
-        <Grid>
-            <Typography variant="h2">Projects</Typography>
-            <Grid container direction="row" style={{ overflow: "hidden" }}>
-                {
-                    projects?.map((project, key) => <ProjectThumbnail key={key} project={project} />)
-                }
+const Dashboard = ({ projects, user }) => {
+    if (!user) {
+        return <Redirect to="/" />
+    }
+    return (
+        <Grid container direction="column" >
+            <Grid>
+                <Typography variant="h2">Projects</Typography>
+                <Grid container direction="row" style={{ overflow: "hidden" }}>
+                    {
+                        projects?.map((project, key) => <ProjectThumbnail key={key} project={project} />)
+                    }
+                </Grid>
+            </Grid>
+            <Grid>
+                <Typography variant="h2">Gallary</Typography>
             </Grid>
         </Grid>
-        <Grid>
-            <Typography variant="h2">Gallary</Typography>
-        </Grid>
-    </Grid>
-)
+    )
+}
 
-const mapStateToProps = ({ projects }) => ({
+const mapStateToProps = ({ projects, auth }) => ({
+    user: auth.user,
     projects
 })
 

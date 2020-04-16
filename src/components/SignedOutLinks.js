@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button"
 
 const SignedOutLinks = () => (
     <>
-        <NavLink to="/landingPage">
+        <NavLink to="/">
             <Button color="secondary">
                 landingPage
             </Button>

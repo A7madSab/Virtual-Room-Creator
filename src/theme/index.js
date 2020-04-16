@@ -8,6 +8,9 @@ const theme = createMuiTheme({
         secondary: {
             main: "#ffffff"
         },
+        error: {
+            main: "#f54029"
+        }
     },
 
     typography: {
@@ -16,7 +19,7 @@ const theme = createMuiTheme({
     overrides: {
         MuiTextField: {
             root: {
-                margin:5
+                margin: 5
             }
         }
     },

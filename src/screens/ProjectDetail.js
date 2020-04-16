@@ -4,7 +4,7 @@ const ProjectDetail = ({ match }) => {
     const { id } = match.params
     return (
         <div>
-            <h1>Project {id} Detail</h1>
+            <h1>ProjectDetail {id}</h1>
         </div>
     )
 }
