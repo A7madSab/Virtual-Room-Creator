@@ -1,12 +1,7 @@
 import { CREATE_PROJECT, CREATE_PROJECT_ERROR } from "./actions"
 import { USER_SIGN_UP, USER_SIGN_UP_ERROR, USER_SIGN_IN, USER_SIGN_IN_ERROR, USER_SIGN_OUT } from "./actions"
 
-const InitalProjectState = [
-    { id: 1, title: "Garage", content: "Dolor adipisicing tempor dolore ut cillum quis sunt ipsum." },
-    { id: 2, title: "Hospital", content: "Cupidatat nulla culpa est incididunt aliquip non proident reprehenderit Lorem sint deserunt nostrud veniam." },
-    { id: 3, title: "Space", content: "Anim duis adipisicing nisi ex enim." }
-]
-
+const InitalProjectState = []
 export const ProjectReducer = (state = InitalProjectState, action) => {
     switch (action.type) {
         case CREATE_PROJECT:

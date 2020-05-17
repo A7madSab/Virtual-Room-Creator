@@ -11,8 +11,8 @@ import ProjectDetail from "../screens/ProjectDetail"
 import NotFound from "../screens/NotFound"
 import { connect } from "react-redux"
 
-
 const Navigation = ({ user }) => {
+    
     return (
         <BrowserRouter>
             <NavBar />

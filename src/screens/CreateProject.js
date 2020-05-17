@@ -41,7 +41,7 @@ const mapStateToProps = ({ auth }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    createProject: project => (createProject(project))
+    createProject: project => dispatch(createProject(project))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateProject)
