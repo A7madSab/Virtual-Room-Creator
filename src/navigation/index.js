@@ -1,36 +1,35 @@
 import React from "react"
-import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { Router, Switch, Route } from "react-router-dom"
 
 import NavBar from "../components/Navbar"
 import SignIn from "../screens/SignIn"
 import SignUp from "../screens/SignUp"
-import landingPage from "../screens/landingPage"
+import landingPage from "../screens/LandingPage"
 import Dashboard from "../screens/Dashboard"
 import CreateProject from "../screens/CreateProject"
 import ProjectDetail from "../screens/ProjectDetail"
 import NotFound from "../screens/NotFound"
-import { connect } from "react-redux"
+import Profile from "../screens/Profile"
+import PrivateRoute from "../components/PrivateRoute"
 
-const Navigation = ({ user }) => {
-    
+import history from "../utils/history"
+
+const Navigation = () => {
     return (
-        <BrowserRouter>
+        <Router history={history}>
             <NavBar />
             <Switch>
-                <Route exact path="/signIn" component={SignIn} />
-                <Route exact path="/signUp" component={SignUp} />
-                <Route exact path="/create-Project" component={CreateProject} />
-                <Route exact path="/dashboard" component={Dashboard} />
-                <Route exact path="/project/:id" component={ProjectDetail} />
                 <Route exact path="/" component={landingPage} />
+                <Route path="/signUp" component={SignUp} />
+                <Route path="/signIn" component={SignIn} />
+                <PrivateRoute path="/createProject" component={CreateProject} />
+                <PrivateRoute path="/dashboard" render={() => <Dashboard />} />
+                <PrivateRoute path="/project/:id" component={ProjectDetail} />
+                <PrivateRoute path="/profile" component={Profile} />
                 <Route component={NotFound} />
             </Switch>
-        </BrowserRouter >
+        </Router >
     )
 }
 
-const mapStateToProps = ({ auth }) => ({
-    user: auth.user
-})
-
-export default connect(mapStateToProps)(Navigation)
+export default Navigation

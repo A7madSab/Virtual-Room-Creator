@@ -7,17 +7,13 @@ import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
 import Typography from "@material-ui/core/Typography"
 
-import { Redirect } from "react-router-dom"
 import { createProject } from "../redux/actions"
 import { connect } from "react-redux"
 
 const CreateProject = ({ user, createProject }) => {
     const [project, setProject] = useState({ title: "", content: "" })
     const handleOnCreateProjectClick = () => { createProject(project) }
-
-    if (!user) {
-        return <Redirect to="/" />
-    }
+    
     return (
         <Grid container alignItems="center" justify="center" >
             <Card>

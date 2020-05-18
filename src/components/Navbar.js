@@ -2,6 +2,8 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 
+import { useAuth0 } from "../utils/react-auth0-spa"
+
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
@@ -11,6 +13,8 @@ import SignedInLinks from "./SignedInLinks"
 import SignedOutLinks from "./SignedOutLinks"
 
 const Navbar = ({ user }) => {
+    const { isAuthenticated } = useAuth0()
+
     return (
         <AppBar position="static">
             <Toolbar>
@@ -22,7 +26,7 @@ const Navbar = ({ user }) => {
                     </Link>
                 </Typography>
 
-                {user ? <SignedInLinks /> : <SignedOutLinks />}
+                {isAuthenticated ? <SignedInLinks /> : <SignedOutLinks />}
 
             </Toolbar>
         </AppBar>

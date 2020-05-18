@@ -11,16 +11,19 @@ import Typography from "@material-ui/core/Typography"
 import { connect } from "react-redux"
 
 import { signIn } from "../redux/actions"
+import { useAuth0 } from "../utils/react-auth0-spa"
 
 const SignIn = ({ user, signIn, error }) => {
     const [signInFrom, setSignInForm] = useState({ email: "", password: "" })
+    const { loginWithRedirect } = useAuth0()
     const props = useSpring({
         from: {
             opacity: 0,
             transform: "translate3d(0,0,0) scale(0.5) rotateX(0deg)",
-        },
-        transform: "translate3d(0px,0,0) scale(1) rotateX(0deg)",
-        opacity: 1,
+        }, to: {
+            transform: "translate3d(0px,0,0) scale(1) rotateX(0deg)",
+            opacity: 1,
+        }
     })
 
     if (user) {
@@ -38,18 +41,18 @@ const SignIn = ({ user, signIn, error }) => {
                             <TextField type="e-mail" label="E-mail" value={signInFrom.email} onChange={e => setSignInForm({ ...signInFrom, email: e.target.value })} />
                             <TextField type="password" label="Password" value={signInFrom.password} onChange={e => setSignInForm({ ...signInFrom, password: e.target.value })} />
 
-                            <Button style={{ marginTop: 15 }} size="small" variant="contained" color="primary" onClick={() => signIn(signInFrom)}>Sign In</Button>
+                            <Button style={{ marginTop: 15 }} size="small" variant="contained" color="primary" onClick={() => loginWithRedirect({})}>Sign In</Button>
 
                             {error ? <Typography style={{ fontSize: 12, paddingTop: 10 }} align="center" color="error">{error}</Typography> : null}
 
                             <Grid container direction="row" justify="center" alignItems="center">
                                 <Typography display="inline" variant="body1">
                                     You Dont have an account?
-                            </Typography>
+                                </Typography>
                                 <Link to="/signup">
                                     <Button>
                                         Sign Up
-                                </Button>
+                                    </Button>
                                 </Link>
                             </Grid>
                         </Grid>
