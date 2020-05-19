@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography"
 
 const styles = makeStyles({
     img: {
-        borderRadius: "50%",
         width: "150px"
     }
 })
@@ -14,7 +13,7 @@ const styles = makeStyles({
 const Uses = ({ title, image }) => {
     const classes = styles()
     return (
-        <Grid>
+        <Grid >
             <img src={image} className={classes.img} alt="feature" />
             <Typography style={{ textAlign: "center" }}>{title}</Typography>
         </Grid>

@@ -8,6 +8,7 @@ import CardHeader from "@material-ui/core/CardHeader"
 import Typography from "@material-ui/core/Typography"
 import CardContent from "@material-ui/core/CardContent"
 import makeStyles from "@material-ui/core/styles/makeStyles"
+import { getRandomColor } from "../../utils"
 
 const useStyles = makeStyles({
     container: {
@@ -19,9 +20,6 @@ const useStyles = makeStyles({
         whiteSpace: "initial",
         justifyContent: "center"
     },
-    avatar: {
-        backgroundColor: red[500]
-    }
 })
 
 const Review = ({ initial, name, position, review }) => {
@@ -34,7 +32,11 @@ const Review = ({ initial, name, position, review }) => {
                 </Typography>
             </CardContent>
             <Box display="flex" alignContent="center" justifyContent="center">
-                <CardHeader title={name} subheader={position} avatar={<Avatar aria-label="recipe" className={classes.avatar}>{initial}</Avatar>} />
+                <CardHeader
+                    title={name}
+                    subheader={position}
+                    avatar={<Avatar aria-label="recipe" className={{ backgroundColor: getRandomColor() }}>{initial}</Avatar>}
+                />
             </Box>
         </Card>
     )

@@ -10,8 +10,8 @@ const styles = makeStyles({
         width: "150px"
     },
     textContainer: {
-        flexDirection: "row",
         flex: 1,
+        flexDirection: "row",
         alignContent: "center",
         maxWidth: 300,
         textAlign: "center",
@@ -19,14 +19,14 @@ const styles = makeStyles({
     }
 })
 
-const Uses = ({ title, image }) => {
+const Use = ({ title, image }) => {
     const classes = styles()
     return (
-        <Grid>
+        <Grid className={classes.textContainer}>
             <img src={image} className={classes.img} alt="feature" />
             <Typography>{title}</Typography>
         </Grid>
     )
 }
 
-export default Uses
+export default Use

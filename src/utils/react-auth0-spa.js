@@ -19,7 +19,6 @@ export const Auth0Provider = ({ children, onRedirectCallback = DEFAULT_REDIRECT_
                 ...initOptions,
                 cacheLocation: 'localstorage',
                 useRefreshTokens: true
-
             })
             setAuth0(auth0FromHook)
 

@@ -9,5 +9,4 @@ export const signIn = ({ firstName, lastName, email, password }) => {
             email,
         }
     })
-
 }

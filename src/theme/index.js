@@ -12,9 +12,8 @@ const theme = createMuiTheme({
             main: "#f54029"
         }
     },
-
     typography: {
-
+        fontFamily: 'Balsamiq Sans'
     },
     overrides: {
         MuiTextField: {

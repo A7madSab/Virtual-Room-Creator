@@ -17,12 +17,18 @@ import history from "../utils/history"
 const Navigation = () => {
     return (
         <Router history={history}>
-            <NavBar />
+            {/* <NavBar /> */}
+
             <Switch>
                 <Route exact path="/" component={landingPage} />
-                <Route path="/signUp" component={SignUp} />
-                <Route path="/signIn" component={SignIn} />
-                <PrivateRoute path="/createProject" component={CreateProject} />
+                {/* <Route path="/signUp" component={SignUp} /> */}
+                {/* <Route path="/signIn" render={() => (
+                    <div>
+                        <NavBar />
+                        <SignIn />
+                    </div>
+                )} /> */}
+                <PrivateRoute path="/createProject" render={() => <CreateProject />} />
                 <PrivateRoute path="/dashboard" render={() => <Dashboard />} />
                 <PrivateRoute path="/project/:id" component={ProjectDetail} />
                 <PrivateRoute path="/profile" component={Profile} />

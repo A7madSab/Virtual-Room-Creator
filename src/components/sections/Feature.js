@@ -10,9 +10,20 @@ const styles = makeStyles({
         flexDirection: "row",
         flex: 1,
         alignContent: "center",
-        maxWidth: 300,
+        maxWidth: 250,
         textAlign: "center",
         margin: "auto"
+    },
+    title: {
+        fontSize: "1.4em",
+        textAlign: "center",
+        textDecoration: "underline",
+        textDecorationColor: "#505BEC"
+    },
+    card: {
+        margin: 10,
+        padding: 5,
+        boxShadow: "2px 2px 5px 3px #888888"
     }
 })
 
@@ -20,17 +31,15 @@ const Feature = ({ title, description, image }) => {
     const classes = styles()
     return (
         <Card className={classes.card}>
-
             <Grid container justify="space-around" direction="row">
-                <Grid item xs>
-                    <img width={300} src={image} alt="feature" />
+                <Grid item>
+                    <img width={350} style={{ overflow: "hidden" }} src={image} alt="feature" />
                 </Grid>
                 <Grid item xs className={classes.textContainer}>
-                    <Typography>{title}</Typography>
+                    <Typography className={classes.title}>{title}</Typography>
                     <Typography>{description}</Typography>
                 </Grid>
             </Grid>
-
         </Card>
     )
 }
