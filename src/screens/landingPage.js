@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 
 // Material-UI
 import Grid from "@material-ui/core/Grid"
@@ -7,19 +7,6 @@ import makeStyles from "@material-ui/styles/makeStyles"
 import Typography from "@material-ui/core/Typography"
 import Input from "@material-ui/core/Input"
 import Button from "@material-ui/core/Button"
-import useMediaQuery from "@material-ui/core/useMediaQuery"
-import { useTheme } from "@material-ui/core/styles"
-import AppBar from "@material-ui/core/AppBar"
-import Toolbar from "@material-ui/core/Toolbar"
-import Box from "@material-ui/core/Box"
-import Drawer from "@material-ui/core/Drawer"
-import IconButton from "@material-ui/core/IconButton"
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
-// import { useSpring, animated } from "react-spring"
-// import { Keyframes } from 'react-spring/renderprops'
 
 // Components
 import Feature from "../components/sections/Feature"
@@ -31,8 +18,6 @@ import { useAuth0 } from "../utils/react-auth0-spa"
 
 // Assets
 import VRPerson from "../assets/person-with-vr.png"
-import UsesIcon from "../assets/Uses.png"
-import VRPeople from "../assets/people-using-vr.png"
 import buildingVR from "../assets/Building-VR.png"
 import personWearingVr from "../assets/person-wearing-vr.png"
 import footerBackground from "../assets/footer-background.png"
@@ -105,6 +90,7 @@ const styles = makeStyles({
     },
     VRCslogan: {
         fontSize: "2.5em",
+        textShadow: "2px 2px 4px #000000",
         color: "#ffff",
         fontWeight: "600",
         textAlign: "center"
@@ -214,104 +200,14 @@ const technology = [{
     title: "Node"
 }]
 
-
 const LandingPage = () => {
     const classes = styles()
-    const [state, setState] = useState(false)
-    const { loginWithRedirect } = useAuth0()
-    const [yAxis, setY] = useState(true)
-    const theme = useTheme()
-    const matches = useMediaQuery(theme.breakpoints.up("md"))
+    const { loginWithRedirect, isAuthenticated } = useAuth0()
+    const [value, setValue] = React.useState(0)
 
-    const toggleDrawer = open => event => {
-        if (
-            event.type === "keydown" &&
-            (event.key === "Tab" || event.key === "Shift")
-        ) {
-            return
-        }
-
-        setState(open)
-    }
-
-    const sideList = () => (
-        <div
-            role="presentation"
-            onClick={toggleDrawer(false)}
-            onKeyDown={toggleDrawer(false)}
-        >
-            <List>
-                {["home", "brochure", "about", "contact"].map(text => (
-                    <ListItem
-                        button
-                        key={text}
-                    >
-                        {/* <ListItemIcon>
-                            {text === "home" ? (
-                                // <HomeIcon />
-                            ) : text === "brochure" ? (
-                                // <BrochureIcon />
-                            ) : text === "about" ? (
-                                // <InfoIcon />
-                            ) : (
-                                // <ContactSupportIcon />
-                            )}
-                        </ListItemIcon> */}
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-            <List>
-                {["products", "blogs"].map(text => (
-                    <ListItem
-                        button
-                        key={text}
-                    >
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-        </div>
-    )
     return (
         <Grid container justify="center" className={classes.container}>
-            {/* App Bar */}
-            <AppBar elevation={0} color={yAxis ? "primary" : "secondary"}>
-                <Toolbar style={{ backgroundColor: "transparent" }}>
-                    {matches ? (
-                        <Grid container direction="row" justify="space-around" alignItems="center"  >
-                            <Button edge="start" color="inherit">
-                                <img src={node} height={60} alt="logo" />
-                            </Button>
-                            <Button color={yAxis ? "inherit" : "primary"}>
-                                Brochure
-                            </Button>
-                            <Button color={yAxis ? "inherit" : "primary"}>
-                                Products
-                            </Button>
-                            <Button color={yAxis ? "inherit" : "primary"}>
-                                About Us
-                            </Button>
-                            <Button color={yAxis ? "inherit" : "primary"}>
-                                Contact Us
-                            </Button>
-                        </Grid>
-                    ) : (
-                            <Box flexGrow="1" alignItems="center" display="flex" justifyContent="space-between"                            >
-                                <IconButton color="inherit" aria-label="open drawer" edge="end" onClick={toggleDrawer(true)}>
-                                    MenuIcon
-                                </IconButton>
-                                <Drawer open={state} onClose={toggleDrawer(false)}>
-                                    {sideList()}
-                                </Drawer>
-                                <Button edge="start" color="inherit">
-                                    {/* <img src={logo} height={80} alt="logo" /> */}
-                                </Button>
-                            </Box>
-                        )}
-                </Toolbar>
-            </AppBar>
-
+            {/* // TODO: Add Drawe Navigation  */}
 
             {/* Title */}
             <Grid container direction="column" justify="center" alignItems="center" className={classes.homeContainer}>
@@ -321,14 +217,15 @@ const LandingPage = () => {
                 <Typography className={classes.VRCslogan}>
                     Visualize Education
                 </Typography>
-                <Button
+                {isAuthenticated ? null : <Button
                     size="large"
                     variant="contained"
                     color="primary"
                     onClick={() => loginWithRedirect({})}
+                    style={{ margin: 15 }}
                 >
                     Getting Started
-                </Button>
+                </Button>}
             </Grid>
 
 
@@ -372,7 +269,7 @@ const LandingPage = () => {
                 </Typography>
                 <Grid container justify="space-around" direction="row">
                     {
-                        uses.map(({ image, title }) => <Use image={image} title={title} />)
+                        uses.map(({ image, title }, key) => <Use key={key} image={image} title={title} />)
                     }
                 </Grid>
             </Grid>
@@ -382,9 +279,9 @@ const LandingPage = () => {
             <Grid container justify="center" direction="column" className={classes.reviewContainer}>
                 <Typography className={classes.whiteTitle}>Reviews</Typography>
                 <Grid style={{ width: "100%" }}>
-                    <Tabs indicatorColor="primary" textColor="primary" variant="scrollable" scrollButtons="on" aria-label="scrollable auto tabs example">
+                    <Tabs value={value} onChange={(event, newValue) => setValue(newValue)} indicatorColor="primary" textColor="primary" variant="scrollable" scrollButtons="on" aria-label="scrollable auto tabs example">
                         {
-                            review.map(({ name, position, initial, review }) => <Review name={name} position={position} initial={initial} review={review} />)
+                            review.map(({ name, position, initial, review }, key) => <Review key={key} name={name} position={position} initial={initial} review={review} />)
                         }
                     </Tabs>
                 </Grid>
@@ -395,7 +292,7 @@ const LandingPage = () => {
                 <Typography className={classes.title}>Technology</Typography>
                 <Grid container justify="space-around" alignItems="center" direction="row">
                     {
-                        technology.map(({ title, image }) => <Technology title={title} image={image} />)
+                        technology.map(({ title, image }, key) => <Technology key={key} title={title} image={image} />)
                     }
                 </Grid>
             </Grid>
@@ -406,7 +303,7 @@ const LandingPage = () => {
 
             {/* Footer */}
             <Grid container justify="center" direction="column" className={classes.footerContainer}>
-                <Typography className={classes.whiteTitle}>Subscribe Newsletters & Get Resources</Typography>
+                <Typography className={classes.title}>Subscribe Newsletters & Get Resources</Typography>
 
                 <Grid container justify="center" direction="row" style={{ padding: 15 }}>
                     <Input placeholder="enter your email" />

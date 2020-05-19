@@ -3,7 +3,6 @@ import React from "react"
 import Card from "@material-ui/core/Card"
 import Box from "@material-ui/core/Box"
 import Avatar from "@material-ui/core/Avatar"
-import red from "@material-ui/core/colors/red"
 import CardHeader from "@material-ui/core/CardHeader"
 import Typography from "@material-ui/core/Typography"
 import CardContent from "@material-ui/core/CardContent"
@@ -35,7 +34,7 @@ const Review = ({ initial, name, position, review }) => {
                 <CardHeader
                     title={name}
                     subheader={position}
-                    avatar={<Avatar aria-label="recipe" className={{ backgroundColor: getRandomColor() }}>{initial}</Avatar>}
+                    avatar={<Avatar aria-label="recipe" style={{ backgroundColor: getRandomColor() }}>{initial}</Avatar>}
                 />
             </Box>
         </Card>
