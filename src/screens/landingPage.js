@@ -33,7 +33,7 @@ import node from "../assets/node.png"
 
 const styles = makeStyles({
     container: {
-        height: "100%"
+        height: "100%",
     },
     homeContainer: {
         height: "100vh",

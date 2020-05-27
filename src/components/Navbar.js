@@ -1,6 +1,5 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { connect } from "react-redux"
 
 import { useAuth0 } from "../utils/react-auth0-spa"
 
@@ -12,7 +11,7 @@ import Button from "@material-ui/core/Button"
 import SignedInLinks from "./SignedInLinks"
 import SignedOutLinks from "./SignedOutLinks"
 
-const Navbar = ({ user }) => {
+const Navbar = () => {
     const { isAuthenticated } = useAuth0()
 
     return (
@@ -33,6 +32,5 @@ const Navbar = ({ user }) => {
     )
 }
 
-const mapStateToProps = ({ auth }) => ({ user: auth.user })
 
-export default connect(mapStateToProps)(Navbar)
+export default Navbar

@@ -5,12 +5,13 @@ import { firestoreReducer } from "redux-firestore"
 import { getFirestore, reduxFirestore } from "redux-firestore"
 import { getFirebase, reactReduxFirebase } from "react-redux-firebase"
 
-import { AuthReducer, ProjectReducer } from "./reducers"
+import { ProjectReducer } from "./reducers"
+// AuthReducer,
 import config from "../config"
 
 const store = createStore(
     combineReducers({
-        auth: AuthReducer,
+        // auth: AuthReducer,
         projects: ProjectReducer,
         firestore: firestoreReducer
     }),

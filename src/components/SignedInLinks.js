@@ -1,11 +1,10 @@
 import React from "react"
-import { NavLink } from "react-router-dom"
-import Button from '@material-ui/core/Button'
-import { signOut } from "../redux/actions"
-import { connect } from "react-redux"
-import { useAuth0 } from "../utils/react-auth0-spa";
 
-const SignedInLinks = ({ user, signOut }) => {
+import Button from "@material-ui/core/Button"
+import { NavLink } from "react-router-dom"
+import { useAuth0 } from "../utils/react-auth0-spa"
+
+const SignedInLinks = () => {
     const { logout } = useAuth0()
 
     return (
@@ -37,12 +36,4 @@ const SignedInLinks = ({ user, signOut }) => {
     )
 }
 
-const mapStateToProps = ({ auth }) => ({
-    user: auth.user
-})
-
-const mapDispatchToProps = dispatch => ({
-    signOut: () => dispatch(signOut())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignedInLinks)
+export default SignedInLinks
