@@ -200,7 +200,7 @@ const technology = [{
     title: "Node"
 }]
 
-const LandingPage = () => {
+const Landing = () => {
     const classes = styles()
     const { loginWithRedirect, isAuthenticated } = useAuth0()
     const [value, setValue] = React.useState(0)
@@ -314,4 +314,4 @@ const LandingPage = () => {
     )
 }
 
-export default LandingPage
+export default Landing
