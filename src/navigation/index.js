@@ -29,7 +29,7 @@ const Navigation = () => {
                 <Route path="/viewer/:id" component={Viewer} />
                 <Route component={NotFound} />
             </Switch>
-        </Router >
+        </Router>
     )
 }
 
