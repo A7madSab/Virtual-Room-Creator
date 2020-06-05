@@ -8,7 +8,7 @@ import NotFound from "../screens/NotFound"
 import Profile from "../screens/Profile"
 import Builder from "../screens/Builder"
 import Viewer from "../screens/Viewer"
-// import Landing from "../screens/Landing"
+import Landing from "../screens/Landing"
 
 import NavBar from "../components/Navbar"
 import PrivateRoute from "../components/PrivateRoute"
@@ -20,7 +20,7 @@ const Navigation = () => {
         <Router history={history}>
             <NavBar />
             <Switch>
-                {/* <Route exact path="/" component={Landing} /> */}
+                <Route exact path="/" component={Landing} />
                 <PrivateRoute path="/createProject" component={CreateProject} />
                 <PrivateRoute path="/project/:id" component={ProjectDetail} />
                 <PrivateRoute path="/builder/:id" component={Builder} />
