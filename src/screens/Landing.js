@@ -207,7 +207,7 @@ const Landing = () => {
 
     return (
         <Grid container justify="center" className={classes.container}>
-            {/* // TODO: Add Drawe Navigation  */}
+            {/* TODO: Add Drawe Navigation  */}
 
             {/* Title */}
             <Grid container direction="column" justify="center" alignItems="center" className={classes.homeContainer}>
