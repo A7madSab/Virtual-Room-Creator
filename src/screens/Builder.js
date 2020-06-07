@@ -1,11 +1,42 @@
-import React from "react"
+import React from "react";
+import { Grid, makeStyles, Hidden } from "@material-ui/core";
 
-const Builder = () => {
-    return (
-        <div>
-            <h1>Builder</h1>
-        </div>
-    )
+import ToolsSection from "../components/builder/sections/Tools.js";
+import TabsSection from "../components/builder/sections/Tabs.js";
+
+const useStyle = makeStyles((theme) => ({
+  root: {
+    backgroundColor: "#212121",
+    minHeight: "91.5vh",
+    overflow: "hidden"
+  },
+  tool: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+}));
+
+function Builder() {
+  const classes = useStyle();
+  return (
+    <Grid container className={classes.root}>
+      <Hidden mdDown>
+        <Grid item xs={1} className={classes.tool}>
+          <ToolsSection />
+        </Grid>
+      </Hidden>
+
+      <Grid item xs={9}>
+
+      </Grid>
+
+      <Hidden mdDown>
+        <Grid item xs={2}>
+          <TabsSection />
+        </Grid>
+      </Hidden>
+    </Grid>
+  );
 }
 
-export default Builder
+export default Builder;
