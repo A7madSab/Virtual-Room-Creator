@@ -3,7 +3,10 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
-import {LockOutlined, LockOpenOutlined, } from "@material-ui/icons";
+import { connect } from "react-redux";
+import { updateMesh } from "../../../redux/actions.js";
+
+import {LockOutlined, LockOpenOutlined } from "@material-ui/icons";
 
 const CustomToggle = withStyles({
     root: {
@@ -21,6 +24,7 @@ const CustomToggle = withStyles({
     },
     selected: {}
 })((props)=> <ToggleButton color="default" {...props} />)
+
 const useStyles = makeStyles((theme) => ({
     toggel: {
         marginBottom: '4%',
@@ -31,18 +35,19 @@ const useStyles = makeStyles((theme) => ({
     
 }));
 
-export default function Locked(props) {
+const Locked = ({meshes, updateMesh}) => {
     const classes = useStyles();
-    const [locked, setLocked] = React.useState('unLocked');
 
+    let meshLocked = meshes.selectedMesh.locked === false ? 'unLocked' : 'Locked';
     const handleLocked = (event, newLocked) => {
-        if (newLocked !== null) {
-            setLocked(newLocked);
-        }
+        updateMesh(
+            meshes.selectedMesh.id,
+            { ...meshes.selectedMesh, locked: newLocked === 'Locked' ? true : false}
+        );
     };
     return (
         <ToggleButtonGroup
-            value={locked}
+            value={meshLocked}
             exclusive
             onChange={handleLocked}
             className={classes.toggel}
@@ -56,3 +61,11 @@ export default function Locked(props) {
         </ToggleButtonGroup>
     );
 }
+
+const mapStateToProps = state => ({
+    meshes: state.meshReducer
+})
+const mapDispatchToProps = dispatch => ({
+    updateMesh: (id, updatedMesh) => dispatch(updateMesh(id, updatedMesh))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Locked)

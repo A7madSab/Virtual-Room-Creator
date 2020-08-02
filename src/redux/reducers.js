@@ -1,5 +1,4 @@
-import { GET_PROJECT } from "./actions"
-// import { USER_SIGN_UP, USER_SIGN_UP_ERROR, USER_SIGN_IN, USER_SIGN_IN_ERROR, USER_SIGN_OUT } from "./actions"
+import { GET_PROJECT } from "./actions";
 
 const InitalProjectState = []
 export const ProjectReducer = (state = InitalProjectState, action) => {
@@ -8,6 +7,81 @@ export const ProjectReducer = (state = InitalProjectState, action) => {
             return action.payload
         default:
             return state
+    }
+}
+
+const initialMeshState = {
+    selectedMesh: {},
+    meshes: []
+}
+export const meshReducer = (state = initialMeshState, action) => {
+    switch (action.type) {
+        case "LOAD-MESH": {
+            state = action.payload;
+            return state;
+        }
+        case 'ADD_MESH': {
+            let meshNumber = state.meshes.length + 1;
+            let mesh = { ...action.payload, id: "Mesh " + meshNumber}
+            return { selectedMesh: mesh, meshes: [...state.meshes, mesh] }
+        }
+        case 'DELETE_MESH': {
+            return { 
+                selectedMesh: {},
+                meshes: state.meshes.filter(mesh => mesh.id !== action.payload) 
+            }
+        }
+        case 'UPDATE_MESH': {
+            let mesh = state.meshes.filter(({ id }) => id !== action.payload.id)
+            state = { ...state, meshes: [...mesh, action.payload.object], selectedMesh: action.payload.object }
+            return state
+        }
+        case 'SELECT_OBJECT': {
+            let mesh = state.meshes.find(({ id }) => id === action.payload.id)
+            return { ...state, selectedMesh: mesh }
+        }
+        case 'CANCEL-SELECT_OBJECT': {
+            return { ...state, selectedMesh: {} }
+        }
+        default: {
+            return state
+        }
+    }
+}
+
+const initialLightState = {
+    selectedLight: {},
+    lights: []
+}
+export const lightReducer = (state = initialLightState, action) => {
+    switch (action.type) {
+        case "LOAD-LIGHT": {
+            state = action.payload;
+            return state;
+        }
+        case 'ADD_LIGHT': {
+            let lightNumber = state.lights.length + 1;
+            let light = { ...action.payload, id: "Light " + lightNumber}
+            return { selectedLight: light, lights: [...state.lights, light] }
+        }
+        case 'DELETE_LIGHT': {
+            return { 
+                selectedLight: {},
+                lights: state.lights.filter(light => light.id !== action.payload) 
+            }
+        }
+        case 'UPDATE_LIGHT': {
+            let light = state.lights.filter(({ id }) => id !== action.payload.id)
+            state = { ...state, lights: [...light, action.payload.object], selectedLight: action.payload.object }
+            return state
+        }
+        case 'SELECT_LIGHT': {
+            let light = state.lights.find(({ id }) => id === action.payload.id)
+            return { ...state, selectedlight: light }
+        }
+        default: {
+            return state
+        }
     }
 }
 

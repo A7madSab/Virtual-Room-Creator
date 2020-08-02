@@ -9,7 +9,7 @@ export const getProject = ({ email }) => async dispatch => {
         const userProjects = userProjectsCollection.docs.map(project => project.data())
         dispatch({ type: GET_PROJECT, payload: userProjects })
     } catch (err) {
-        console.log("error creating project", err)
+        console.log("error fetch project", err)
     }
 }
 
@@ -30,6 +30,100 @@ export const deleteProject = ({ projectId, email }) => async dispatch => {
         console.log("error creating project", err)
     }
 }
+
+
+
+export const defaultGeometry = {
+    id: "",
+    type: "Box-Geometry",
+    visible: true,
+    locked: false,
+    position: [0, 0, 0],
+    dimensions: [2.0, 2.0, 2.0],
+    material: "Normal",
+    scale: 1,
+    color: 0xff3300,
+    castShadow: false,
+    receiveShadow: false,
+}
+export const defaultPoly = {
+    id: "",
+    type: "Poly",
+    scale: 1,
+    visible: true,
+    position: [0, 0, 0],
+}
+export const defaultText = {
+    id: "",
+    type: "Text",
+    scale: 1,
+    visible: true,
+    size: 40,
+    height: 5,
+    position: [0, 0, 0],
+}
+
+export const addMesh = (type, payload) => {
+    if (type === "Box-Geometry")
+        return {
+            type: "ADD_MESH",
+            payload: { ...defaultGeometry, type: "Box-Geometry" }
+        }
+    else if (type === "Dodecahedron-Geometry")
+        return {
+            type: "ADD_MESH",
+            payload: { ...defaultGeometry, type: "Dodecahedron-Geometry" }
+        }
+    else if (type === "Cone-Geometry")
+        return {
+            type: "ADD_MESH",
+            payload: { ...defaultGeometry, type: "Cone-Geometry" }
+        }
+    else if (type === "Cylinder-Geometry")
+        return {
+            type: "ADD_MESH",
+            payload: { ...defaultGeometry, type: "Cylinder-Geometry" }
+        }
+    else if (type === "Poly")
+        return {
+            type: "ADD_MESH",
+            payload: defaultPoly
+        }
+    else if (type === "Text")
+        return {
+            type: "ADD_MESH",
+            payload: defaultText
+        }
+}
+export const deleteMesh = (meshId) => ({
+    type: "DELETE_MESH",
+    payload: meshId
+})
+export const updateMesh = (meshId, updatedObject) => ({
+    type: "UPDATE_MESH",
+    payload: { id: meshId, object: updatedObject }
+})
+export const selectMesh = (objectId, objectType) => ({
+    type: "SELECT_OBJECT",
+    payload: { id: objectId, type: objectType }
+})
+export const cancelSelectMesh = () => ({
+    type: "CANCEL-SELECT_OBJECT",
+    payload: {}
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -4,6 +4,9 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { Typography } from '@material-ui/core';
 
+import { connect } from "react-redux";
+import { updateMesh } from "../../../redux/actions.js";
+
 const CustomToggel = withStyles({
     root: {
         borderColor: '#616161',
@@ -32,17 +35,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function MaterialType(props) {
+const MaterialType = ({meshes, updateMesh}) => {
     const classes = useStyles();
-    const [type, setType] = React.useState('Normal');
 
-    const handleMaterialType = (event, newType) => {
-        if (newType !== null) {
-            setType(newType);
+    let meshMaterial = "Normal";
+    if(meshes.selectedMesh.material != null)
+        meshMaterial = meshes.selectedMesh.material;
+
+    const handelMaterial = (event, newMaterial) => {
+        if (newMaterial !== null) {
+            updateMesh(
+                meshes.selectedMesh.id,
+                { ...meshes.selectedMesh, material: newMaterial}
+            );
         }
     };
+
     return (
-        <ToggleButtonGroup value={type} exclusive onChange={handleMaterialType}
+        <ToggleButtonGroup value={meshMaterial} exclusive onChange={handelMaterial}
             className={classes.toggel}
         >
             <CustomToggel value="Normal">
@@ -57,3 +67,11 @@ export default function MaterialType(props) {
         </ToggleButtonGroup>
     );
 }
+
+const mapStateToProps = state => ({
+    meshes: state.meshReducer
+});
+const mapDispatchToProps = dispatch => ({
+    updateMesh: (id, updatedMesh) => dispatch(updateMesh(id, updatedMesh))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(MaterialType);

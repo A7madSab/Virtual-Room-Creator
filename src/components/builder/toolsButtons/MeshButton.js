@@ -5,6 +5,9 @@ import { Category } from "@material-ui/icons"
 import MeshImage from "../../../assets/builder/mesh-popover.png";
 import PopoverCard from "../PopoverCard.js";
 
+import store from "../../../redux/store.js";
+import { addMesh } from "../../../redux/actions.js"
+
 const useStyle = makeStyles((theme) => ({
     button: {
         color: "white",
@@ -29,6 +32,10 @@ function MeshButton() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const executeAction = (type) => {
+        store.dispatch(addMesh(type));
+        handleClose();
+    }
 
     /**
      * Popover Card Component
@@ -75,10 +82,10 @@ function MeshButton() {
                 onClose={handleClose}
                 classes={{ paper: classes.menu }}
             >
-                <MenuItem onClick={handleClose}>Box Geometry</MenuItem>
-                <MenuItem onClick={handleClose}>Circle Geometry</MenuItem>
-                <MenuItem onClick={handleClose}>Cone Geometry</MenuItem>
-                <MenuItem onClick={handleClose}>Cylinder Geometry</MenuItem>
+                <MenuItem onClick={(type) => executeAction("Box-Geometry")}>Box Geometry</MenuItem>
+                <MenuItem onClick={(type) => executeAction("Dodecahedron-Geometry")}>Dodecahedron Geometry</MenuItem>
+                <MenuItem onClick={(type) => executeAction("Cone-Geometry")}>Cone Geometry</MenuItem>
+                <MenuItem onClick={(type) => executeAction("Cylinder-Geometry")}>Cylinder Geometry</MenuItem>
             </Menu>
             <PopoverCard close={handlePopoverClose} anchorPopover={anchorPopover} info={cardInfo} />
         </React.Fragment>

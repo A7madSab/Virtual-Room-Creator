@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Tabs, Tab } from '@material-ui/core';
+import { connect } from "react-redux";
 
 import PropertiesTab from '../tabs/PropertiesTab';
 import ComponentsTab from '../tabs/ComponentsTab';
@@ -22,9 +23,21 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function TabsSection() {
+const TabsSection = ({ meshes }) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
+
+    function handlePropertiesContent(type) {
+        if(type == null)
+            return "Scene";
+        else {
+            return "Mesh";
+        }
+            
+    }
+
+    let propertiesContent = handlePropertiesContent(meshes.selectedMesh.type);
+
     return (
         <div className={classes.root}>
             <Paper square>
@@ -38,10 +51,13 @@ function TabsSection() {
                     <Tab label="Component"  className={classes.tab} />
                 </Tabs>
             </Paper>
-            <PropertiesTab value={value} index={0} />
+            <PropertiesTab value={value} index={0} contentType={propertiesContent}/>
             <ComponentsTab value={value} index={1} />
         </div>
     );
 }
 
-export default TabsSection
+const mapStateToProps = state => ({
+    meshes: state.meshReducer
+})
+export default connect(mapStateToProps, )(TabsSection)

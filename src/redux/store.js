@@ -5,7 +5,8 @@ import { firestoreReducer } from "redux-firestore"
 import { getFirestore, reduxFirestore } from "redux-firestore"
 import { getFirebase, reactReduxFirebase } from "react-redux-firebase"
 
-import { ProjectReducer } from "./reducers"
+import { ProjectReducer, meshReducer, lightReducer } from "./reducers";
+
 // AuthReducer,
 import config from "../config"
 
@@ -13,6 +14,8 @@ const store = createStore(
     combineReducers({
         // auth: AuthReducer,
         projects: ProjectReducer,
+        meshReducer: meshReducer,
+        lightReducer: lightReducer,
         firestore: firestoreReducer
     }),
     compose(

@@ -54,7 +54,7 @@ export default function MaterialFill(props) {
                     <Typography>Texture</Typography>
                 </CustomToggel>
             </ToggleButtonGroup>
-            <ColorCollection />
+            {fill === "color" ? <ColorCollection /> : null}
         </React.Fragment>
     );
 }

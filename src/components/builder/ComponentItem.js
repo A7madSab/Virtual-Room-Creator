@@ -1,8 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Divider, Button, Typography } from '@material-ui/core';
-import { Category, VisibilityOutlined, WbSunnyOutlined,ThreeDRotationOutlined, TextFieldsOutlined} from "@material-ui/icons"
+import { Category, VisibilityOutlined,VisibilityOffOutlined, WbSunnyOutlined, ThreeDRotationOutlined, TextFieldsOutlined } from "@material-ui/icons"
 
+import store from "../../redux/store.js";
+import {selectMesh} from "../../redux/actions.js";
 
 const useStyles = makeStyles((theme) => ({
     item: {
@@ -35,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ComponentItem(props) {
     const classes = useStyles();
     function handelComponentIcon(component) {
-        if(component === "mesh") {
+        if (component === "mesh") {
             return <Category className={classes.icon} />;
         }
         else if (component === "poly") {
@@ -50,12 +52,17 @@ export default function ComponentItem(props) {
     }
     return (
         <Grid item xs={12}>
-            <Button className={classes.item} elevation={5} variant="outlined" >
+            <Button className={classes.item} elevation={5} variant="outlined" 
+                onClick={() => store.dispatch(selectMesh(props.name, "MESH"))}
+            >
                 {handelComponentIcon(props.component)}
                 <Divider orientation="vertical" flexItem />
-                <Typography className={classes.content} variant="body2">Name</Typography>
+                <Typography className={classes.content} variant="body2">{props.name}</Typography>
                 <Divider orientation="vertical" flexItem />
-                <VisibilityOutlined className={classes.visible} fontSize="small" />
+                { props.visible === true 
+                    ? <VisibilityOutlined className={classes.visible} fontSize="small" /> 
+                    : <VisibilityOffOutlined className={classes.visible} fontSize="small" />
+                }
             </Button>
         </Grid>
     );

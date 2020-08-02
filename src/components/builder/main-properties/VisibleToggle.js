@@ -3,6 +3,9 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
+import { connect } from "react-redux";
+import { updateMesh } from "../../../redux/actions.js";
+
 import { VisibilityOffOutlined, VisibilityOutlined } from "@material-ui/icons";
 
 const CustomToggle = withStyles({
@@ -20,7 +23,7 @@ const CustomToggle = withStyles({
         }
     },
     selected: {}
-})((props)=> <ToggleButton color="default" {...props} />)
+})((props) => <ToggleButton color="default" {...props} />)
 
 const useStyles = makeStyles((theme) => ({
     toggel: {
@@ -28,21 +31,24 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#424242',
         width: '50%',
     },
-    
+
 }));
 
-export default function Visible(props) {
+const Visible = ({ meshes, updateMesh }) => {
     const classes = useStyles();
-    const [visible, setVisible] = React.useState('visible');
 
+    let meshVisible = meshes.selectedMesh.visible === true ? 'visible' : 'unVisible';
     const handelVisible = (event, newVisible) => {
         if (newVisible !== null) {
-            setVisible(newVisible);
+            updateMesh(
+                meshes.selectedMesh.id,
+                { ...meshes.selectedMesh, visible: newVisible === 'visible' ? true : false}
+            );
         }
     };
     return (
         <ToggleButtonGroup
-            value={visible}
+            value={meshVisible}
             exclusive
             onChange={handelVisible}
             className={classes.toggel}
@@ -56,3 +62,11 @@ export default function Visible(props) {
         </ToggleButtonGroup>
     );
 }
+
+const mapStateToProps = state => ({
+    meshes: state.meshReducer
+});
+const mapDispatchToProps = dispatch => ({
+    updateMesh: (id, updatedMesh) => dispatch(updateMesh(id, updatedMesh))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Visible);

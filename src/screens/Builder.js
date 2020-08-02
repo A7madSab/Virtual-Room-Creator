@@ -3,6 +3,7 @@ import { Grid, makeStyles, Hidden } from "@material-ui/core";
 
 import ToolsSection from "../components/builder/sections/Tools.js";
 import TabsSection from "../components/builder/sections/Tabs.js";
+import SceneSection from "../components/builder/sections/Scene.js";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,7 @@ function Builder() {
       </Hidden>
 
       <Grid item xs={9}>
-
+        <SceneSection />
       </Grid>
 
       <Hidden mdDown>

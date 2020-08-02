@@ -1,21 +1,27 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
+import { connect } from 'react-redux';
 
 import ComponentItem from "./ComponentItem.js";
 
-export default function ComponentsList() {
+const ComponentsList = ({meshes}) => {
     return (
         <Grid container>
-            <ComponentItem component="mesh"/>
-            <ComponentItem component="mesh"/>
-            <ComponentItem component="poly"/>
-            <ComponentItem component="poly"/>
-            <ComponentItem component="poly"/>
-            <ComponentItem component="text"/>
-            <ComponentItem component="text"/>
-            <ComponentItem component="light"/>
-            <ComponentItem component="light"/>
+            {
+                meshes.meshes.map((mesh, key) => {
+                    if(mesh.type === "poly")
+                        return <ComponentItem component="poly" name={mesh.id} visible={mesh.visible}/>
+                    else
+                        return <ComponentItem component="mesh" name={mesh.id} visible={mesh.visible}/>
+                })
+            }
         </Grid>
     );
 }
+
+const mapStateToProps = state => ({
+    meshes: state.meshReducer
+})
+
+export default connect(mapStateToProps, )(ComponentsList)
 

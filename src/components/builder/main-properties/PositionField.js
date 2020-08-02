@@ -2,15 +2,20 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Grid } from '@material-ui/core';
 
+import { connect } from "react-redux"
+import { updateMesh } from "../../../redux/actions.js";
+
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginBottom: '3%',
+        marginBottom: '2%',
+        marginLeft: '0px',
+        paddingLeft: '0px'
     },
     inputfield: {
         width: '100%',
-        color: '#eeeeee',
-        
-        
+        color: '#eeeeee',  
+        marginLeft: '0px',
+        paddingLeft: '0px', 
         '& label.Mui-focused': {
             color: 'white',
         },
@@ -34,25 +39,26 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Position(props) {
+const Position =  ({meshes, updateMesh}) => {
     const classes = useStyles();
+    let position = meshes.selectedMesh.position;
     return (
         <Grid container spacing={1} className={classes.root}>
-            <Grid item xs={4}>
+            <Grid item xs={4} style={{paddingLeft:"0px"}}>
                 <TextField
                     id="outlined-basic"
                     variant="outlined"
                     size="small"
                     label="X"
                     className={classes.inputfield}
-                    placeholder="0.0"
-                    defaultValue="0.0"
+                    placeholder= "0.0"
                     InputProps={{
                         className: classes.inputfield,
                     }}
+                    value={position != null ? Number(position[0]).toFixed(2) : "0.0"}
                 />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={4} style={{paddingLeft:"0px"}}>
                 <TextField
                     id="outlined-basic"
                     variant="outlined"
@@ -60,13 +66,13 @@ export default function Position(props) {
                     label="Y"
                     className={classes.inputfield}
                     placeholder="0.0"
-                    defaultValue="0.0"
                     InputProps={{
                         className: classes.inputfield,
                     }}
+                    value={position != null ? Number(position[1]).toFixed(2) : "0.0"}
                 />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={4} style={{paddingLeft:"0px"}}>
                 <TextField
                     id="outlined-basic"
                     variant="outlined"
@@ -74,13 +80,21 @@ export default function Position(props) {
                     label="Z"
                     className={classes.inputfield}
                     placeholder="0.0"
-                    defaultValue="0.0"
                     InputProps={{
                         className: classes.inputfield,
                     }}
+                    value={position != null ? Number(position[2]).toFixed(2) : "0.0"}
                 />
             </Grid>
         </Grid>
 
     );
 }
+
+const mapStateToProps = state => ({
+    meshes: state.meshReducer
+})
+const mapDispatchToProps = dispatch => ({
+    updateMesh: (id, updatedMesh) => dispatch(updateMesh(id, updatedMesh))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Position)

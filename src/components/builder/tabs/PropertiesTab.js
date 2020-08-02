@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Divider} from '@material-ui/core';
+import { Paper, Divider } from '@material-ui/core';
 
 import Visible from '../main-properties/VisibleToggle.js';
 import Locked from '../main-properties/LockToggle.js';
@@ -24,25 +24,32 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PropertiesTab(props) {
-    const { value, index } = props;
+const PropertiesTab = (props) => {
+    const { value, index, contentType } = props;
     const classes = useStyles();
+
+    let MeshContent = contentType === "Mesh" ? true : false;
+
     return (
         <Paper hidden={value !== index} className={classes.paper} square>
-            <Visible />
-            <Locked />
-            <NameField />
-            <Position />
-            <TypeField />
-            <Dimension />
-            <Divider />
-            <MaterialType />
-            <MaterialFill />
+            {MeshContent && <Fragment>
+                <Visible />
+                <Locked />
+                <NameField />
+                <Position />
+                <TypeField />
+                <Dimension />
+                <Divider />
+                <MaterialType />
+                <MaterialFill />
+            </Fragment>}
         </Paper>
     );
 }
-
 PropertiesTab.propTypes = {
     index: PropTypes.any.isRequired,
     value: PropTypes.any.isRequired,
+    contentType: PropTypes.any.isRequired
 };
+
+export default PropertiesTab
