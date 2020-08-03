@@ -5,6 +5,9 @@ import { WbSunnyOutlined } from "@material-ui/icons"
 import LightImage from "../../../assets/builder/light-popover.png";
 import PopoverCard from "../PopoverCard.js";
 
+import store from "../../../redux/store.js";
+import { addLight } from "../../../redux/actions.js"
+
 const useStyle = makeStyles((theme) => ({
     button: {
         color: "white",
@@ -32,6 +35,10 @@ function LightButton() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const executeAction = (type) => {
+        store.dispatch(addLight(type));
+        handleClose();
+    }
 
     /**
      * Popover Card Component
@@ -77,10 +84,10 @@ function LightButton() {
                 onClose={handleClose}
                 classes={{ paper: classes.menu }}
             >
-                <MenuItem onClick={handleClose}>Ambient Light</MenuItem>
-                <MenuItem onClick={handleClose}>Directional Light</MenuItem>
-                <MenuItem onClick={handleClose}>Point Light</MenuItem>
-                <MenuItem onClick={handleClose}>Spot Light</MenuItem>
+                <MenuItem onClick={(type) => executeAction("Ambient-Light")}>Ambient Light</MenuItem>
+                <MenuItem onClick={(type) => executeAction("Directional-Light")}>Directional Light</MenuItem>
+                <MenuItem onClick={(type) => executeAction("Point-Light")}>Point Light</MenuItem>
+                <MenuItem onClick={(type) => executeAction("Spot-Light")}>Spot Light</MenuItem>
             </Menu>
             <PopoverCard close={handlePopoverClose} anchorPopover={anchorPopover} info={cardInfo} />
         </React.Fragment>

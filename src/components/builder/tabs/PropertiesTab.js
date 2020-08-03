@@ -12,6 +12,10 @@ import TypeField from '../main-properties/TypeField.js';
 
 import MaterialType from '../material-properties/MaterialType.js';
 import MaterialFill from '../material-properties/MaterialFill.js';
+import LightNameField from '../light-properties/LightNameField.js';
+import LightTypeField from '../light-properties/LightTypeField.js';
+import LightPoition from '../light-properties/LightPosition.js';
+import LightColor from '../light-properties/LightColor.js';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -29,6 +33,7 @@ const PropertiesTab = (props) => {
     const classes = useStyles();
 
     let MeshContent = contentType === "Mesh" ? true : false;
+    let LightContent = contentType === "Light" ? true : false;
 
     return (
         <Paper hidden={value !== index} className={classes.paper} square>
@@ -42,6 +47,12 @@ const PropertiesTab = (props) => {
                 <Divider />
                 <MaterialType />
                 <MaterialFill />
+            </Fragment>}
+            {LightContent && <Fragment>
+                <LightNameField />
+                <LightTypeField />
+                <LightPoition />
+                <LightColor />
             </Fragment>}
         </Paper>
     );

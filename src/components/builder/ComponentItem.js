@@ -4,7 +4,7 @@ import { Grid, Divider, Button, Typography } from '@material-ui/core';
 import { Category, VisibilityOutlined,VisibilityOffOutlined, WbSunnyOutlined, ThreeDRotationOutlined, TextFieldsOutlined } from "@material-ui/icons"
 
 import store from "../../redux/store.js";
-import {selectMesh} from "../../redux/actions.js";
+import {selectMesh, selectLight } from "../../redux/actions.js";
 
 const useStyles = makeStyles((theme) => ({
     item: {
@@ -36,6 +36,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ComponentItem(props) {
     const classes = useStyles();
+    function handelSelection() { 
+        if(props.component === "mesh") {
+            store.dispatch(selectMesh(props.name, "MESH"));
+        }
+        else if(props.component === "light") {
+            store.dispatch(selectLight(props.name, "LIGHT"))
+        }
+    }
     function handelComponentIcon(component) {
         if (component === "mesh") {
             return <Category className={classes.icon} />;
@@ -53,7 +61,7 @@ export default function ComponentItem(props) {
     return (
         <Grid item xs={12}>
             <Button className={classes.item} elevation={5} variant="outlined" 
-                onClick={() => store.dispatch(selectMesh(props.name, "MESH"))}
+                onClick={handelSelection}
             >
                 {handelComponentIcon(props.component)}
                 <Divider orientation="vertical" flexItem />

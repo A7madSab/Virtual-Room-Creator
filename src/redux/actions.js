@@ -1,13 +1,12 @@
+import store from "./store.js";
 import firebase from "../config/index"
 import { v4 as uuid } from "uuid"
-
-export const GET_PROJECT = "GET_PROJECT"
 
 export const getProject = ({ email }) => async dispatch => {
     try {
         const userProjectsCollection = await firebase.firestore().collection(email).get()
         const userProjects = userProjectsCollection.docs.map(project => project.data())
-        dispatch({ type: GET_PROJECT, payload: userProjects })
+        dispatch({ type: "GET_PROJECT", payload: userProjects })
     } catch (err) {
         console.log("error fetch project", err)
     }
@@ -64,6 +63,7 @@ export const defaultText = {
 }
 
 export const addMesh = (type, payload) => {
+    store.dispatch(cancelSelectLight());
     if (type === "Box-Geometry")
         return {
             type: "ADD_MESH",
@@ -95,30 +95,93 @@ export const addMesh = (type, payload) => {
             payload: defaultText
         }
 }
-export const deleteMesh = (meshId) => ({
-    type: "DELETE_MESH",
-    payload: meshId
-})
-export const updateMesh = (meshId, updatedObject) => ({
-    type: "UPDATE_MESH",
-    payload: { id: meshId, object: updatedObject }
-})
-export const selectMesh = (objectId, objectType) => ({
-    type: "SELECT_OBJECT",
-    payload: { id: objectId, type: objectType }
-})
-export const cancelSelectMesh = () => ({
-    type: "CANCEL-SELECT_OBJECT",
-    payload: {}
-})
+export const deleteMesh = (meshId) => {
+    return ({
+        type: "DELETE_MESH",
+        payload: meshId
+    })
+}
+export const updateMesh = (meshId, updatedObject) => {
+    return ({
+        type: "UPDATE_MESH",
+        payload: { id: meshId, object: updatedObject }
+    })
+}
+export const selectMesh = (objectId, objectType) => {
+    store.dispatch(cancelSelectLight());
+    return ({
+        type: "SELECT_OBJECT",
+        payload: { id: objectId, type: objectType }
+    })
+}
+export const cancelSelectMesh = () => {
+    return ({
+        type: "CANCEL-SELECT_OBJECT",
+        payload: {}
+    })
+}
 
 
 
 
 
+export const defaultLight = {
+    id: "",
+    type: " Point-Light",
+    position: [5, 5, 5],
+    color: 0xffffff,
+    intensity: 1
+}
 
+export const addLight = (type, payload) => {
+    store.dispatch(cancelSelectMesh());
+    if (type === "Point-Light")
+        return {
+            type: "ADD_LIGHT",
+            payload: { ...defaultLight, type: "Point-Light" }
+        }
+    else if (type === "Directional-Light")
+        return {
+            type: "ADD_LIGHT",
+            payload: { ...defaultLight, type: "Directional-Light" }
+        }
+    else if (type === "Spot-Light")
+        return {
+            type: "ADD_LIGHT",
+            payload: { ...defaultLight, type: "Spot-Light" }
+        }
+    else if (type === "Ambient-Light")
+        return {
+            type: "ADD_LIGHT",
+            payload: { ...defaultLight, type: "Ambient-Light" }
+        }
 
-
+}
+export const deleteLight = (lightId) => {
+    return ({
+        type: "DELETE_LIGHT",
+        payload: lightId
+    })
+}
+export const updateLight = (lightId, updatedObject) => {
+    return ({
+        type: "UPDATE_LIGHT",
+        payload: { id: lightId, object: updatedObject }
+    })
+}
+export const selectLight = (objectId, objectType) => {
+    store.dispatch(cancelSelectMesh());
+    return ({
+        type: "SELECT_LIGHT",
+        payload: { id: objectId, type: objectType }
+    })
+}
+export const cancelSelectLight = () => {
+    return ({
+        type: "CANCEL-SELECT_LIGHT",
+        payload: {}
+    })
+}
 
 
 

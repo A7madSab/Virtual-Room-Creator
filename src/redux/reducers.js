@@ -1,9 +1,7 @@
-import { GET_PROJECT } from "./actions";
-
 const InitalProjectState = []
 export const ProjectReducer = (state = InitalProjectState, action) => {
     switch (action.type) {
-        case GET_PROJECT:
+        case "GET_PROJECT":
             return action.payload
         default:
             return state
@@ -22,13 +20,13 @@ export const meshReducer = (state = initialMeshState, action) => {
         }
         case 'ADD_MESH': {
             let meshNumber = state.meshes.length + 1;
-            let mesh = { ...action.payload, id: "Mesh " + meshNumber}
+            let mesh = { ...action.payload, id: "Mesh " + meshNumber }
             return { selectedMesh: mesh, meshes: [...state.meshes, mesh] }
         }
         case 'DELETE_MESH': {
-            return { 
+            return {
                 selectedMesh: {},
-                meshes: state.meshes.filter(mesh => mesh.id !== action.payload) 
+                meshes: state.meshes.filter(mesh => mesh.id !== action.payload)
             }
         }
         case 'UPDATE_MESH': {
@@ -51,7 +49,15 @@ export const meshReducer = (state = initialMeshState, action) => {
 
 const initialLightState = {
     selectedLight: {},
-    lights: []
+    lights: [
+        {
+            id: "Light 1",
+            type: "Point-Light",
+            position: [5, 5, 5],
+            color: 0xffffff,
+            intensity: 1
+        }
+    ]
 }
 export const lightReducer = (state = initialLightState, action) => {
     switch (action.type) {
@@ -61,13 +67,13 @@ export const lightReducer = (state = initialLightState, action) => {
         }
         case 'ADD_LIGHT': {
             let lightNumber = state.lights.length + 1;
-            let light = { ...action.payload, id: "Light " + lightNumber}
+            let light = { ...action.payload, id: "Light " + lightNumber }
             return { selectedLight: light, lights: [...state.lights, light] }
         }
         case 'DELETE_LIGHT': {
-            return { 
+            return {
                 selectedLight: {},
-                lights: state.lights.filter(light => light.id !== action.payload) 
+                lights: state.lights.filter(light => light.id !== action.payload)
             }
         }
         case 'UPDATE_LIGHT': {
@@ -77,7 +83,10 @@ export const lightReducer = (state = initialLightState, action) => {
         }
         case 'SELECT_LIGHT': {
             let light = state.lights.find(({ id }) => id === action.payload.id)
-            return { ...state, selectedlight: light }
+            return { ...state, selectedLight: light }
+        }
+        case 'CANCEL-SELECT_LIGHT': {
+            return { ...state, selectedLight: {} }
         }
         default: {
             return state

@@ -23,20 +23,23 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const TabsSection = ({ meshes }) => {
+const TabsSection = ({ meshes, lights }) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
     function handlePropertiesContent(type) {
-        if(type == null)
+        if(meshes.selectedMesh.type == null && lights.selectedLight.type == null)
             return "Scene";
-        else {
+        else if (meshes.selectedMesh.type != null ) {
             return "Mesh";
+        }
+        else if (lights.selectedLight.type != null ) {
+            return "Light"
         }
             
     }
 
-    let propertiesContent = handlePropertiesContent(meshes.selectedMesh.type);
+    let propertiesContent = handlePropertiesContent();
 
     return (
         <div className={classes.root}>
@@ -58,6 +61,7 @@ const TabsSection = ({ meshes }) => {
 }
 
 const mapStateToProps = state => ({
-    meshes: state.meshReducer
+    meshes: state.meshReducer,
+    lights: state.lightReducer
 })
 export default connect(mapStateToProps, )(TabsSection)
