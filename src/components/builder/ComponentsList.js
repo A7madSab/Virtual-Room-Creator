@@ -18,6 +18,7 @@ const ComponentsList = ({meshes, lights}) => {
             {
                 lights.lights.map((light, key) => {
                     return <ComponentItem key={light.id} component="light" name={light.id} visible={true}/>
+
                 })
             }
         </Grid>

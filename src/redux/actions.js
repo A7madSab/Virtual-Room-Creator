@@ -87,7 +87,7 @@ export const addMesh = (type, payload) => {
     else if (type === "Poly")
         return {
             type: "ADD_MESH",
-            payload: defaultPoly
+            payload: { type: "poly", ...defaultPoly, ...payload }
         }
     else if (type === "Text")
         return {
@@ -120,6 +120,27 @@ export const cancelSelectMesh = () => {
         payload: {}
     })
 }
+
+
+
+export const deleteMesh = (meshId) => ({
+    type: "DELETE_MESH",
+    payload: meshId
+})
+export const updateMesh = (meshId, updatedObject) => ({
+    type: "UPDATE_MESH",
+    payload: { id: meshId, object: updatedObject }
+})
+export const selectMesh = (objectId, objectType) => ({
+    type: "SELECT_OBJECT",
+    payload: { id: objectId, type: objectType }
+})
+export const cancelSelectMesh = () => ({
+    type: "CANCEL-SELECT_OBJECT",
+    payload: {}
+})
+
+
 
 
 
