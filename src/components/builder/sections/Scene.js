@@ -1,15 +1,16 @@
-import React, {createRef} from "react";
-import {Canvas} from "react-three-fiber";
+import React, { createRef, Suspense } from "react";
+import { Canvas } from "react-three-fiber";
 import { connect } from "react-redux"
 
 import OrbitControl from "../three-fiber/OrbitControl.js";
 import Geometry from "../three-fiber/Geometry.js";
+import Model from "../three-fiber/Model"
 
 function Scene({ meshReducer }) {
     /// Ref to Orbit Control Stoped when Transform Start
     const orbitRef = createRef();
     return (
-        <Canvas 
+        <Canvas
             camera={{
                 fov: 80,
                 aspect: window.innerWidth / window.innerHeight,
@@ -18,17 +19,25 @@ function Scene({ meshReducer }) {
                 position: [0, 10, 15]
             }}
         >
-
+            <ambientLight />
             <OrbitControl ref={orbitRef} />
             <gridHelper args={[50, 50, 0xff1744]} />
+            <pointLight position={[0, 0, 0]} />
             <pointLight position={[5, 5, 10]} />
 
             {
                 meshReducer.meshes.map((mesh, key) => {
+                    if (mesh.type === "Poly") {
+                        return (
+                            <Suspense key={key} fallback={null}>
+                                <Model orbit={orbitRef} key={mesh.id} name={mesh.id} url={mesh.url} murl={mesh.murl} />
+                            </Suspense>
+                        )
+                    }
                     return <Geometry orbit={orbitRef} key={mesh.id} name={mesh.id} />
                 })
             }
-            
+
         </Canvas>
     );
 }
@@ -37,6 +46,6 @@ const mapStateToProps = (state) => ({
     meshReducer: state.meshReducer,
 });
 const mapDispatchToProps = dispatch => ({
-    
+
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Scene)

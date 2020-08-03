@@ -87,7 +87,7 @@ export const addMesh = (type, payload) => {
     else if (type === "Poly")
         return {
             type: "ADD_MESH",
-            payload: defaultPoly
+            payload: { type: "poly", ...defaultPoly, ...payload }
         }
     else if (type === "Text")
         return {
@@ -95,6 +95,8 @@ export const addMesh = (type, payload) => {
             payload: defaultText
         }
 }
+
+
 export const deleteMesh = (meshId) => ({
     type: "DELETE_MESH",
     payload: meshId
