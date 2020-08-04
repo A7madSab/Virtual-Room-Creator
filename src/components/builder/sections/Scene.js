@@ -5,11 +5,9 @@ import { connect } from "react-redux"
 import OrbitControl from "../three-fiber/OrbitControl.js";
 import Geometry from "../three-fiber/Geometry.js";
 import Light from "../three-fiber/Light.js";
-import Model from "../three-fiber/Model"
-
+import Model from "../three-fiber/Model";
 
 function Scene({ meshReducer, lightReducer }) {
-    /// Ref to Orbit Control Stoped when Transform Start
     const orbitRef = createRef();
     return (
         <Canvas
@@ -38,10 +36,13 @@ function Scene({ meshReducer, lightReducer }) {
                             </Suspense>
                         )
                     }
-                    return <Geometry orbit={orbitRef} key={mesh.id} name={mesh.id} />
-                }) 
+                    return (
+                        <Suspense key={key} fallback={null}>
+                            <Geometry orbit={orbitRef} key={mesh.id} name={mesh.id} />
+                        </Suspense>
+                    )
+                })
             }
-
         </Canvas>
     );
 }

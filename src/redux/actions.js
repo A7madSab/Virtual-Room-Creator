@@ -121,7 +121,6 @@ export const cancelSelectMesh = () => {
     })
 }
 
-
 export const defaultLight = {
     id: "",
     type: " Point-Light",

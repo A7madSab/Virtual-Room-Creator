@@ -1,5 +1,6 @@
-import React, { useRef } from "react"
+import React, { useRef, useMemo } from "react"
 import { useResource, useFrame } from "react-three-fiber"
+import * as THREE from "three"
 
 import TransformControl from "./TransformControl.js"
 
@@ -9,6 +10,7 @@ import { selectMesh } from "../../../redux/actions"
 const Geometry = (props) => {
     const [ref, mesh] = useResource()
     const boxHelperRef = useRef()
+
 
     let hovered = store.getState().meshReducer.selectedMesh.id === props.name ? true : false
     let state = store.getState().meshReducer.meshes.find(({ id }) => id === props.name)
@@ -21,6 +23,9 @@ const Geometry = (props) => {
     let basicMaterial = state.material === "Basic" ? true : false
     let normalMaterial = state.material === "Normal" ? true : false
     let phongMaterial = state.material === "Phong" ? true : false
+    let textureMaterial = state.material === "Texture" ? true : false
+
+    const texture = useMemo(() => new THREE.TextureLoader().load(state.texture), [state.texture])
 
     useFrame(() => {
         if (boxHelperRef.current) {
@@ -46,8 +51,9 @@ const Geometry = (props) => {
 
 
                 {normalMaterial && <meshNormalMaterial attach="material" />}
-                {basicMaterial &&  <meshBasicMaterial attach="material" color={state.color} />}
-                {phongMaterial &&  <meshPhongMaterial attach="material" color={state.color} />}
+                {basicMaterial && <meshBasicMaterial attach="material" color={state.color} />}
+                {phongMaterial && <meshPhongMaterial attach="material" color={state.color} />}
+                {textureMaterial && <meshLambertMaterial attach="material" map={texture} side={THREE.DoubleSide} />}
             </mesh>
 
             {hovered ? mesh && !state.locked && <TransformControl orbit={props.orbit} mesh={mesh} /> : null}
