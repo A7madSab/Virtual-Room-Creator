@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'start',
         width: '98%',
         backgroundColor: '#424242',
+        borderColor: '#616161',
         color: '#fafafa',
         margin: '1%',
         padding: '4%',
@@ -59,7 +60,7 @@ export default function ComponentItem(props) {
         }
     }
     return (
-        <Grid item xs={12}>
+        <Grid item xs={12} style={{margin: "1%"}}>
             <Button className={classes.item} elevation={5} variant="outlined" 
                 onClick={handelSelection}
             >

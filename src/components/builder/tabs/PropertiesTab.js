@@ -12,10 +12,21 @@ import TypeField from '../main-properties/TypeField.js';
 
 import MaterialType from '../material-properties/MaterialType.js';
 import MaterialFill from '../material-properties/MaterialFill.js';
+
 import LightNameField from '../light-properties/LightNameField.js';
 import LightTypeField from '../light-properties/LightTypeField.js';
 import LightPoition from '../light-properties/LightPosition.js';
 import LightColor from '../light-properties/LightColor.js';
+
+import ProjectNameField from "../scene-properties/ProjectNameField.js";
+import ShareCodeField from "../scene-properties/ShareCodeField.js";
+import SceneBackgroudField from '../scene-properties/SceneBackgroudField.js';
+import GridProps from '../scene-properties/GridProps.js';
+import PlaneProps from '../scene-properties/PlaneProps.js';
+import SkyBoxProps from '../scene-properties/SkyBoxProps.js';
+import CameraProps from "../scene-properties/CameraProps.js";
+import SaveButton from "../scene-properties/SaveButton.js";
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -32,6 +43,7 @@ const PropertiesTab = (props) => {
     const { value, index, contentType } = props;
     const classes = useStyles();
 
+    let SceneContent = contentType === "Scene" ? true : false;
     let MeshContent = contentType === "Mesh" ? true : false;
     let LightContent = contentType === "Light" ? true : false;
 
@@ -53,6 +65,20 @@ const PropertiesTab = (props) => {
                 <LightTypeField />
                 <LightPoition />
                 <LightColor />
+            </Fragment>}
+            {SceneContent && <Fragment>
+                <ProjectNameField />
+                <ShareCodeField />
+                <SkyBoxProps />
+                <SceneBackgroudField />
+                <Divider />
+                <GridProps />
+                <Divider />
+                <PlaneProps />
+                <Divider />
+                <CameraProps />
+                <Divider />
+                <SaveButton />
             </Fragment>}
         </Paper>
     );
