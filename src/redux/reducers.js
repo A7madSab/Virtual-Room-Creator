@@ -1,8 +1,10 @@
-const InitalProjectState = []
+const InitalProjectState = { projects: [], selectedProject: {} }
 export const ProjectReducer = (state = InitalProjectState, action) => {
     switch (action.type) {
-        case "GET_PROJECT":
-            return action.payload
+        case "GET_ALL_PROJECTS":
+            return { ...InitalProjectState, projects: action.payload }
+        case "OPEN_PROJECT":
+            return { projects: [...state.projects], selectedProject: action.payload }
         default:
             return state
     }
