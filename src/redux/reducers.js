@@ -43,6 +43,9 @@ export const meshReducer = (state = initialMeshState, action) => {
         case 'CANCEL-SELECT_OBJECT': {
             return { ...state, selectedMesh: {} }
         }
+        case 'SELECT_MESH_TYPE': {
+            return { ...state, selectedMesh: { type: "Text" } }
+        }
         default: {
             return state
         }

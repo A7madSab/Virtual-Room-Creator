@@ -28,15 +28,19 @@ const TabsSection = ({ meshes, lights }) => {
     const [value, setValue] = React.useState(0);
 
     function handlePropertiesContent(type) {
-        if(meshes.selectedMesh.type == null && lights.selectedLight.type == null)
+        if (meshes.selectedMesh.type == null && lights.selectedLight.type == null){
             return "Scene";
-        else if (meshes.selectedMesh.type != null ) {
+        }
+        else if (meshes.selectedMesh.type === "Text") {
+            return "Text";
+        }
+        else if (meshes.selectedMesh.type != null) {
             return "Mesh";
         }
-        else if (lights.selectedLight.type != null ) {
+        else if (lights.selectedLight.type != null) {
             return "Light"
         }
-            
+
     }
 
     let propertiesContent = handlePropertiesContent();
@@ -51,10 +55,10 @@ const TabsSection = ({ meshes, lights }) => {
                     className={classes.tabs}
                 >
                     <Tab label="Properties" className={classes.tab} />
-                    <Tab label="Component"  className={classes.tab} />
+                    <Tab label="Component" className={classes.tab} />
                 </Tabs>
             </Paper>
-            <PropertiesTab value={value} index={0} contentType={propertiesContent}/>
+            <PropertiesTab value={value} index={0} contentType={propertiesContent} />
             <ComponentsTab value={value} index={1} />
         </div>
     );
@@ -64,4 +68,4 @@ const mapStateToProps = state => ({
     meshes: state.meshReducer,
     lights: state.lightReducer
 })
-export default connect(mapStateToProps, )(TabsSection)
+export default connect(mapStateToProps,)(TabsSection)

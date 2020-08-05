@@ -68,9 +68,11 @@ export const defaultPoly = {
 export const defaultText = {
     id: "",
     type: "Text",
+    text: "Insert Text",
     scale: 1,
     visible: true,
-    size: 40,
+    size: 12,
+    material: "Normal",
     height: 5,
     position: [0, 0, 0],
 }
@@ -105,7 +107,7 @@ export const addMesh = (type, payload) => {
     else if (type === "Text")
         return {
             type: "ADD_MESH",
-            payload: defaultText
+            payload: { ...defaultText, text: payload }
         }
 }
 export const deleteMesh = (meshId) => {
@@ -127,6 +129,10 @@ export const selectMesh = (objectId, objectType) => {
         payload: { id: objectId, type: objectType }
     })
 }
+export const selectMeshType = type => ({
+    type: "SELECT_MESH_TYPE",
+    payload: { type }
+})
 export const cancelSelectMesh = () => {
     return ({
         type: "CANCEL-SELECT_OBJECT",
@@ -231,9 +237,7 @@ export const cancelSelectLight = () => {
 // export const signOut = () => async dispatch => {
 //     try {
 //         const data = await firebase.auth().signOut()
-//         console.log("data", data)
 //         dispatch({ type: USER_SIGN_OUT })
 //     } catch (err) {
-//         console.log("err", err)
 //     }
 // }

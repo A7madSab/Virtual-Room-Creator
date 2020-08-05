@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Divider } from '@material-ui/core';
 
+import AcceptText from '../text-properties/AcceptText.js'
+
 import Visible from '../main-properties/VisibleToggle.js';
 import Locked from '../main-properties/LockToggle.js';
 import Position from '../main-properties/PositionField.js';
@@ -39,16 +41,21 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const PropertiesTab = (props) => {
-    const { value, index, contentType } = props;
+const PropertiesTab = ({ value, index, contentType }) => {
     const classes = useStyles();
 
     let SceneContent = contentType === "Scene" ? true : false;
     let MeshContent = contentType === "Mesh" ? true : false;
     let LightContent = contentType === "Light" ? true : false;
+    let TextContent = contentType === "Text" ? true : false;
 
     return (
         <Paper hidden={value !== index} className={classes.paper} square>
+            {TextContent && <Fragment>
+                <AcceptText />
+                <MaterialType />
+                <MaterialFill />
+            </Fragment>}
             {MeshContent && <Fragment>
                 <Visible />
                 <Locked />
