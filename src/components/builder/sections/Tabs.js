@@ -31,14 +31,18 @@ const TabsSection = ({ meshes, lights }) => {
     
     let propertiesContent = handlePropertiesContent();
     function handlePropertiesContent(type) {
-        if(meshes.selectedMesh.type == null && lights.selectedLight.type == null)
+        if (meshes.selectedMesh.type == null && lights.selectedLight.type == null){
             return "Scene";
-        else if (meshes.selectedMesh.type != null ) {
+        }
+        else if (meshes.selectedMesh.type === "Text") {
+            return "Text";
+        }
+        else if (meshes.selectedMesh.type != null) {
             return "Mesh";
         }
-        else if (lights.selectedLight.type != null ) {
+        else if (lights.selectedLight.type != null) {
             return "Light"
-        }    
+        }
     }
 
     return (
@@ -52,10 +56,10 @@ const TabsSection = ({ meshes, lights }) => {
                     ref={PaperRef}
                 >
                     <Tab label="Properties" className={classes.tab} />
-                    <Tab label="Component"  className={classes.tab} />
+                    <Tab label="Component" className={classes.tab} />
                 </Tabs>
             </Paper>
-            <PropertiesTab value={value} index={0} contentType={propertiesContent}/>
+            <PropertiesTab value={value} index={0} contentType={propertiesContent} />
             <ComponentsTab value={value} index={1} />
             {
                 propertiesContent === "Mesh"
@@ -70,4 +74,4 @@ const mapStateToProps = state => ({
     meshes: state.meshReducer,
     lights: state.lightReducer
 })
-export default connect(mapStateToProps, )(TabsSection)
+export default connect(mapStateToProps,)(TabsSection)

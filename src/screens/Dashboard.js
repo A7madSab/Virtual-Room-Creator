@@ -28,7 +28,6 @@ const Dashboard = ({ projects, getProject }) => {
 
     useEffect(() => {
         if (user) {
-            console.log(user)
             getProject(user)
         }
     }, [user, getProject])
@@ -44,7 +43,7 @@ const Dashboard = ({ projects, getProject }) => {
 }
 
 const mapStateToProps = ({ projects }) => ({
-    projects
+    projects: projects.projects
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core';
+import { Paper, Divider } from '@material-ui/core';
+
+import AcceptText from '../text-properties/AcceptText.js'
+
+import MaterialType from '../material-properties/MaterialType.js';
+import MaterialFill from '../material-properties/MaterialFill.js';
 
 import MeshContent from "../Properties-Tab-Content/MeshContent.js";
 import LightContent from "../Properties-Tab-Content/LightContent.js";
@@ -17,8 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const PropertiesTab = (props) => {
-    const { value, index, contentType } = props;
+const PropertiesTab = ({ value, index, contentType }) => {
     const classes = useStyles();
 
     let SceneSelected = contentType === "Scene" ? true : false;
@@ -32,6 +36,11 @@ const PropertiesTab = (props) => {
                     {MeshSelected && <MeshContent />}
                     {LightSelected && <LightContent />}
                     {SceneSelected && <SceneContent />}
+                    {TextContent && <Fragment>
+                        <AcceptText />
+                        <MaterialType />
+                        <MaterialFill />
+                    </Fragment>}
                 </Paper>
                 : null
             }

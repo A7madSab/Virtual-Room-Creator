@@ -6,6 +6,7 @@ import OrbitControl from "../three-fiber/OrbitControl.js";
 import Geometry from "../three-fiber/Geometry.js";
 import Light from "../three-fiber/Light.js";
 import Model from "../three-fiber/Model";
+import TextGeometry from "../three-fiber/TextGeometry.js";
 
 function Scene({ meshReducer, lightReducer }) {
     const orbitRef = createRef();
@@ -32,6 +33,13 @@ function Scene({ meshReducer, lightReducer }) {
                         return (
                             <Suspense key={key} fallback={null}>
                                 <Model orbit={orbitRef} key={mesh.id} name={mesh.id} url={mesh.url} murl={mesh.murl} />
+                            </Suspense>
+                        )
+                    }
+                    if (mesh.type === "Text") {
+                        return (
+                            <Suspense key={key} fallback={null}>
+                                <TextGeometry orbit={orbitRef} key={mesh.id} name={mesh.id} text={mesh.text} />
                             </Suspense>
                         )
                     }

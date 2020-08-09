@@ -53,7 +53,7 @@ const MaterialFill = ({ meshes, updateMesh }) => {
             }, false)
             reader.readAsDataURL(image)
         }
-    }, [image, meshes.selectedMesh, updateMesh])
+    }, [image])
 
     const handleMaterialFill = (event, newFill) => {
         if (newFill !== null) {

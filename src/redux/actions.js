@@ -1,4 +1,4 @@
-import store from "./store.js";
+import store from "./store.js"
 import firebase from "../config/index"
 import { v4 as uuid } from "uuid"
 
@@ -6,7 +6,20 @@ export const getProject = ({ email }) => async dispatch => {
     try {
         const userProjectsCollection = await firebase.firestore().collection(email).get()
         const userProjects = userProjectsCollection.docs.map(project => project.data())
-        dispatch({ type: "GET_PROJECT", payload: userProjects })
+        dispatch({ type: "GET_ALL_PROJECTS", payload: userProjects })
+    } catch (err) {
+        console.log("error fetch project", err)
+    }
+}
+
+export const openProject = ({ email }, projectid) => async dispatch => {
+    try {
+        const userProjectsCollection = await firebase.firestore().collection(email).get()
+        const userProjects = userProjectsCollection.docs.map(project => project.data())
+        const currentProject = userProjects.filter(project => project.projectid === projectid)[0]
+
+        dispatch({ type: "GET_ALL_PROJECTS", payload: userProjects })
+        dispatch({ type: "OPEN_PROJECT", payload: currentProject })
     } catch (err) {
         console.log("error fetch project", err)
     }
@@ -55,15 +68,17 @@ export const defaultPoly = {
 export const defaultText = {
     id: "",
     type: "Text",
+    text: "Insert Text",
     scale: 1,
     visible: true,
-    size: 40,
+    size: 12,
+    material: "Normal",
     height: 5,
     position: [0, 0, 0],
 }
 
 export const addMesh = (type, payload) => {
-    store.dispatch(cancelSelectLight());
+    store.dispatch(cancelSelectLight())
     if (type === "Box-Geometry")
         return {
             type: "ADD_MESH",
@@ -92,7 +107,7 @@ export const addMesh = (type, payload) => {
     else if (type === "Text")
         return {
             type: "ADD_MESH",
-            payload: defaultText
+            payload: { ...defaultText, text: payload }
         }
 }
 export const deleteMesh = (meshId) => {
@@ -108,12 +123,16 @@ export const updateMesh = (meshId, updatedObject) => {
     })
 }
 export const selectMesh = (objectId, objectType) => {
-    store.dispatch(cancelSelectLight());
+    store.dispatch(cancelSelectLight())
     return ({
         type: "SELECT_OBJECT",
         payload: { id: objectId, type: objectType }
     })
 }
+export const selectMeshType = type => ({
+    type: "SELECT_MESH_TYPE",
+    payload: { type }
+})
 export const cancelSelectMesh = () => {
     return ({
         type: "CANCEL-SELECT_OBJECT",
@@ -130,7 +149,7 @@ export const defaultLight = {
 }
 
 export const addLight = (type, payload) => {
-    store.dispatch(cancelSelectMesh());
+    store.dispatch(cancelSelectMesh())
     if (type === "Point-Light")
         return {
             type: "ADD_LIGHT",
@@ -166,7 +185,7 @@ export const updateLight = (lightId, updatedObject) => {
     })
 }
 export const selectLight = (objectId, objectType) => {
-    store.dispatch(cancelSelectMesh());
+    store.dispatch(cancelSelectMesh())
     return ({
         type: "SELECT_LIGHT",
         payload: { id: objectId, type: objectType }
@@ -218,9 +237,7 @@ export const cancelSelectLight = () => {
 // export const signOut = () => async dispatch => {
 //     try {
 //         const data = await firebase.auth().signOut()
-//         console.log("data", data)
 //         dispatch({ type: USER_SIGN_OUT })
 //     } catch (err) {
-//         console.log("err", err)
 //     }
 // }
