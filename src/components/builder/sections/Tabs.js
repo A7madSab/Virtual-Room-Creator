@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Tabs, Tab } from '@material-ui/core';
 import { connect } from "react-redux";
 
 import PropertiesTab from '../tabs/PropertiesTab';
 import ComponentsTab from '../tabs/ComponentsTab';
+import ActionButtonPopover from "../ActionButtonPopover.js"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,7 +27,9 @@ const useStyles = makeStyles((theme) => ({
 const TabsSection = ({ meshes, lights }) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
-
+    const PaperRef = useRef();
+    
+    let propertiesContent = handlePropertiesContent();
     function handlePropertiesContent(type) {
         if(meshes.selectedMesh.type == null && lights.selectedLight.type == null)
             return "Scene";
@@ -35,20 +38,18 @@ const TabsSection = ({ meshes, lights }) => {
         }
         else if (lights.selectedLight.type != null ) {
             return "Light"
-        }
-            
+        }    
     }
-
-    let propertiesContent = handlePropertiesContent();
 
     return (
         <div className={classes.root}>
-            <Paper square>
+            <Paper square >
                 <Tabs
                     value={value}
                     onChange={(event, newValue) => setValue(newValue)}
                     classes={{ indicator: classes.indicator }}
                     className={classes.tabs}
+                    ref={PaperRef}
                 >
                     <Tab label="Properties" className={classes.tab} />
                     <Tab label="Component"  className={classes.tab} />
@@ -56,6 +57,11 @@ const TabsSection = ({ meshes, lights }) => {
             </Paper>
             <PropertiesTab value={value} index={0} contentType={propertiesContent}/>
             <ComponentsTab value={value} index={1} />
+            {
+                propertiesContent === "Mesh"
+                ? <ActionButtonPopover anchorPopover={PaperRef.current} />
+                : null
+            }
         </div>
     );
 }

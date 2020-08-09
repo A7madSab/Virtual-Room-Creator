@@ -7,7 +7,9 @@ import TransformControl from "./TransformControl.js"
 import store from "../../../redux/store.js"
 import { selectMesh } from "../../../redux/actions"
 
+
 const Geometry = (props) => {
+
     const [ref, mesh] = useResource()
     const boxHelperRef = useRef()
 
@@ -39,7 +41,7 @@ const Geometry = (props) => {
                 ref={ref}
                 visible={state.visible}
                 position={state.position}
-                onClick={() => store.dispatch(selectMesh(props.name, "MESH"))}
+                onClick={(event) => {store.dispatch(selectMesh(props.name, "MESH"));}}
                 castShadow={state.castShadow}
                 receiveShadow={state.receiveShadow}
                 {...props}

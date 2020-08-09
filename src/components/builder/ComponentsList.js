@@ -9,7 +9,7 @@ const ComponentsList = ({meshes, lights}) => {
         <Grid container>
             {
                 meshes.meshes.map((mesh, key) => {
-                    if(mesh.type === "poly")
+                    if(mesh.type === "Poly")
                         return <ComponentItem key={mesh.id} component="poly" name={mesh.id} visible={mesh.visible}/>
                     else
                         return <ComponentItem key={mesh.id} component="mesh" name={mesh.id} visible={mesh.visible}/>

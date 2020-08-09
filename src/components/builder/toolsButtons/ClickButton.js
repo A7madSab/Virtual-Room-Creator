@@ -3,7 +3,8 @@ import { makeStyles, IconButton, Divider } from "@material-ui/core";
 import { NearMeOutlined } from "@material-ui/icons"
 import { connect } from "react-redux";
 
-import { cancelSelectMesh } from "../../../redux/actions.js"
+import { cancelSelectMesh, cancelSelectLight } from "../../../redux/actions.js";
+
 const useStyle = makeStyles((theme) => ({
     button: {
         color: "white",
@@ -13,11 +14,13 @@ const useStyle = makeStyles((theme) => ({
     },
 }));
 
-const ClickButton = ({cancelSelectMesh}) => {
+const ClickButton = ({cancelSelectMesh, cancelSelectLigth}) => {
     const classes = useStyle();
     return (
         <React.Fragment>
-            <IconButton className={classes.button} onClick={() => cancelSelectMesh()}>
+            <IconButton className={classes.button} 
+                onClick={() => {cancelSelectMesh(); cancelSelectLigth()}}
+            >
                 <NearMeOutlined fontSize="large" />
             </IconButton>
             <Divider />
@@ -26,10 +29,10 @@ const ClickButton = ({cancelSelectMesh}) => {
 }
 
 const mapStateToProps = state => ({
-    meshes: state.meshReducer
 })
 const mapDispatchToProps = dispatch => ({
-    cancelSelectMesh: () => dispatch(cancelSelectMesh())
+    cancelSelectMesh: () => dispatch(cancelSelectMesh()),
+    cancelSelectLigth: () => dispatch(cancelSelectLight()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClickButton)

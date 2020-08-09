@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ComponentItem(props) {
     const classes = useStyles();
     function handelSelection() { 
-        if(props.component === "mesh") {
+        if(props.component === "mesh" || props.component === "poly") {
             store.dispatch(selectMesh(props.name, "MESH"));
         }
         else if(props.component === "light") {

@@ -19,7 +19,6 @@ function Scene({ meshReducer, lightReducer }) {
                 position: [0, 10, 15]
             }}
         >
-            <ambientLight />
             <OrbitControl ref={orbitRef} />
             <gridHelper args={[50, 50, 0xff1744]} />
             {
