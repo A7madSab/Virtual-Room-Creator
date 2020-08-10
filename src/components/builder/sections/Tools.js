@@ -1,6 +1,5 @@
 import React from "react";
 import { Paper, makeStyles } from "@material-ui/core";
-import Draggable from 'react-draggable';
 
 import ClickButton from "../toolsButtons/ClickButton.js";
 import MeshButton from "../toolsButtons/MeshButton.js";
@@ -26,17 +25,15 @@ const useStyle = makeStyles((theme) => ({
 function ToolsSection() {
     const classes = useStyle();
     return (
-        <Draggable>
-            <Paper className={classes.ComponentPanel}>
-                <ClickButton />
-                <MeshButton  />
-                <PloyButton  />
-                <LightButton />
-                <TextButton  />
-                <SkyBoxButton/>
-                <GroundButton/>
-            </Paper>
-        </Draggable>
+        <Paper className={classes.ComponentPanel}>
+            <ClickButton />
+            <MeshButton />
+            <PloyButton />
+            <LightButton />
+            <TextButton />
+            <SkyBoxButton />
+            <GroundButton />
+        </Paper>
     );
 }
 
