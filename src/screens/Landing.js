@@ -202,13 +202,8 @@ const technology = [{
 
 const Landing = () => {
     const classes = styles()
-    const { loginWithRedirect, isAuthenticated, loading } = useAuth0()
+    const { loginWithRedirect, isAuthenticated } = useAuth0()
     const [value, setValue] = React.useState(0)
-    const { } = useAuth0();
-
-    if (loading) {
-        return null
-    }
 
     return (
         <Grid container justify="center" className={classes.container}>
