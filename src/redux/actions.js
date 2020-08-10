@@ -1,5 +1,6 @@
 import store from "./store.js"
 import firebase from "../config/index"
+import { createScene, getSceneByProjectId } from "../api/index.js";
 import { v4 as uuid } from "uuid"
 
 export const getProject = ({ email }) => async dispatch => {
@@ -12,14 +13,54 @@ export const getProject = ({ email }) => async dispatch => {
     }
 }
 
+const defaultScene = {
+    shareCode: "",
+    sceneId: "",
+    backgroubColor: "#212121",
+    gridHelper: {
+        visible: true,
+        size: "50",
+        divid: "50"
+    },
+    planeHelper: {
+        visible: false,
+        width: "10",
+        hight: "10",
+        depth: "1",
+        color: "#fafafa"
+    },
+    skybox: {
+        visible: false,
+        selectedSkybox: "",
+        gallary: []
+    },
+}
+
 export const openProject = ({ email }, projectid) => async dispatch => {
     try {
         const userProjectsCollection = await firebase.firestore().collection(email).get()
         const userProjects = userProjectsCollection.docs.map(project => project.data())
         const currentProject = userProjects.filter(project => project.projectid === projectid)[0]
 
-        dispatch({ type: "GET_ALL_PROJECTS", payload: userProjects })
-        dispatch({ type: "OPEN_PROJECT", payload: currentProject })
+        dispatch({ type: "GET_ALL_PROJECTS", payload: userProjects });
+        dispatch({ type: "OPEN_PROJECT", payload: currentProject });
+
+        console.log(currentProject.projectid)
+        const scene = await getSceneByProjectId(currentProject.projectid);
+        if(scene.state.sceneReducer) {
+            dispatch({ type: "LOAD-SCENE", payload: scene.state.sceneReducer});
+            dispatch({ type: "LOAD-MESH",  payload: scene.state.meshReducer});
+            dispatch({ type: "LOAD-LIGHT", payload: scene.state.lightReducer});
+        }
+        else {
+            dispatch({ 
+                type: "LOAD-SCENE", 
+                payload: {...defaultScene, shareCode: scene.projectId, sceneId: scene.id}
+            });
+            dispatch({ type: "LOAD-MESH",  payload: {selectedMesh: {}, meshes: []} });
+            dispatch({ type: "LOAD-LIGHT", payload: {selectedLight: {},lights: []} });
+        }
+
     } catch (err) {
         console.log("error fetch project", err)
     }
@@ -27,8 +68,10 @@ export const openProject = ({ email }, projectid) => async dispatch => {
 
 export const createProject = ({ email, ...project }) => async dispatch => {
     try {
-        await firebase.firestore().collection(email).add({ projectid: uuid(), ...project, createdAt: new Date() })
-        getProject(email)
+        let projectId = uuid();
+        await firebase.firestore().collection(email).add({ projectid: projectId, ...project, createdAt: new Date() })
+        await createScene(projectId);
+        getProject(email);
     } catch (err) {
         console.log("error creating project", err)
     }
@@ -42,8 +85,6 @@ export const deleteProject = ({ projectId, email }) => async dispatch => {
         console.log("error creating project", err)
     }
 }
-
-
 
 export const defaultGeometry = {
     id: "",
