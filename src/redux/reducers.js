@@ -22,7 +22,7 @@ export const meshReducer = (state = initialMeshState, action) => {
         }
         case 'ADD_MESH': {
             let meshNumber = state.meshes.length + 1;
-            let mesh = { ...action.payload, id: "Mesh " + meshNumber }
+            let mesh = { ...action.payload, id: action.payload.type + " " + meshNumber }
             return { selectedMesh: mesh, meshes: [...state.meshes, mesh] }
         }
         case 'DELETE_MESH': {

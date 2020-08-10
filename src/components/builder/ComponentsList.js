@@ -11,6 +11,8 @@ const ComponentsList = ({meshes, lights}) => {
                 meshes.meshes.map((mesh, key) => {
                     if(mesh.type === "Poly")
                         return <ComponentItem key={mesh.id} component="poly" name={mesh.id} visible={mesh.visible}/>
+                    else if (mesh.type === "Text")
+                        return <ComponentItem key={mesh.id} component="text" name={mesh.id} visible={mesh.visible}/>
                     else
                         return <ComponentItem key={mesh.id} component="mesh" name={mesh.id} visible={mesh.visible}/>
                 })

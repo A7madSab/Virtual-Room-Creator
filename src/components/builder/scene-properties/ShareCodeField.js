@@ -33,9 +33,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ShareCodeField = () => {
-    const classes = useStyles();
-    
+const ShareCodeField = ({projects}) => {
+    const classes = useStyles(); 
+    const [projectShareCode, setShareCode] = React.useState("Share Code");
+
+    React.useEffect(() => {
+        if(projects.selectedProject.projectid)
+            setShareCode(projects.selectedProject.projectid);
+        else
+            setShareCode("Share Code");
+    }, [projects.selectedProject]);
+
     return (
         <TextField
             variant="outlined"
@@ -43,7 +51,7 @@ const ShareCodeField = () => {
             label="Share Code"
             className={classes.inputfield}
             placeholder="Share Code"
-            defaultValue= "XXX - XXX - XXX - XXX"
+            value={projectShareCode}
             InputProps={{
                 className: classes.inputfield,
             }}   
@@ -52,5 +60,6 @@ const ShareCodeField = () => {
     );
 }
 const mapStateToProps = state => ({
+    projects: state.projects,
 })
 export default connect(mapStateToProps, )(ShareCodeField)

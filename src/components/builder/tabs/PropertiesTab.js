@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Divider } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 
 import AcceptText from '../text-properties/AcceptText.js'
 
@@ -28,6 +28,7 @@ const PropertiesTab = ({ value, index, contentType }) => {
     let SceneSelected = contentType === "Scene" ? true : false;
     let MeshSelected = contentType === "Mesh" ? true : false;
     let LightSelected = contentType === "Light" ? true : false;
+    let TextSelected = contentType === "Text" ? true : false;
 
     return (
         <>
@@ -36,7 +37,7 @@ const PropertiesTab = ({ value, index, contentType }) => {
                     {MeshSelected && <MeshContent />}
                     {LightSelected && <LightContent />}
                     {SceneSelected && <SceneContent />}
-                    {TextContent && <Fragment>
+                    {TextSelected && <Fragment>
                         <AcceptText />
                         <MaterialType />
                         <MaterialFill />

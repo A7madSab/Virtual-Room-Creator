@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import { Typography } from '@material-ui/core';
@@ -38,11 +38,10 @@ const useStyles = makeStyles((theme) => ({
 const MaterialFill = ({ meshes, updateMesh }) => {
     const classes = useStyles();
     const [fill, setFill] = React.useState('color');
-    const [image, setImage] = useState(null)
     const [base64Image, setBase64Image] = useState(null)
 
-    useEffect(() => {
-        if (image) {
+    function saveImage(image) {
+        if(image) {
             const reader = new FileReader()
             reader.addEventListener("load", () => {
                 setBase64Image(reader.result)
@@ -53,7 +52,7 @@ const MaterialFill = ({ meshes, updateMesh }) => {
             }, false)
             reader.readAsDataURL(image)
         }
-    }, [image])
+    }
 
     const handleMaterialFill = (event, newFill) => {
         if (newFill !== null) {
@@ -76,7 +75,7 @@ const MaterialFill = ({ meshes, updateMesh }) => {
                 ? <ColorCollection />
                 : <React.Fragment>
                     <Typography>Select a file:</Typography>
-                    <input type="file" onChange={e => setImage(e.target.files[0])} />
+                    <input type="file" onChange={e => {saveImage(e.target.files[0])}} />
                     <img src={base64Image} height={25} width={25} alt="preview" />
                 </React.Fragment>
             }
