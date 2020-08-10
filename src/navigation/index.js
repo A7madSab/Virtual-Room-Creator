@@ -15,7 +15,15 @@ import PrivateRoute from "../components/PrivateRoute"
 
 import history from "../utils/history"
 
+import { useAuth0 } from "../utils/react-auth0-spa"
+
 const Navigation = () => {
+    const { loading } = useAuth0()
+
+    if (loading) {
+        return <div />
+    }
+
     return (
         <Router history={history}>
             <NavBar />
