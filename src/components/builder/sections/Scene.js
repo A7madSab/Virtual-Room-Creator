@@ -7,11 +7,13 @@ import Geometry from "../three-fiber/Geometry.js";
 import Light from "../three-fiber/Light.js";
 import Model from "../three-fiber/Model";
 import TextGeometry from "../three-fiber/TextGeometry.js";
+import VrButtom from "../three-fiber/VrButton.js";
 
-function Scene({ meshReducer, lightReducer }) {
+function Scene({ meshReducer, lightReducer}, props) {
     const orbitRef = createRef();
     return (
         <Canvas
+            vr={true}
             camera={{
                 fov: 80,
                 aspect: window.innerWidth / window.innerHeight,
@@ -21,6 +23,7 @@ function Scene({ meshReducer, lightReducer }) {
             }}
         >
             <OrbitControl ref={orbitRef} />
+            <VrButtom />
             <gridHelper args={[50, 50, 0xff1744]} />
             {
                 lightReducer.lights.map((light, key) => {

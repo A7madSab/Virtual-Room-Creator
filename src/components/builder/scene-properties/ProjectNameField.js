@@ -33,9 +33,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProjectNameField = () => {
+const ProjectNameField = ({projects}) => {
     const classes = useStyles();
-    
+    const [projectTitle, setTitle] = React.useState("Project Name");
+
+    React.useEffect(() => {
+        if(projects.selectedProject.projectid)
+            setTitle(projects.selectedProject.title);
+        else
+            setTitle("Project Name");
+    }, [projects.selectedProject]);
+
     return (
         <TextField
             variant="outlined"
@@ -43,14 +51,14 @@ const ProjectNameField = () => {
             label="Name"
             className={classes.inputfield}
             placeholder="Project Name"
-            defaultValue= "Project Name"
+            value= {projectTitle}
             InputProps={{
                 className: classes.inputfield,
             }}   
         />
-
     );
 }
 const mapStateToProps = state => ({
+    projects: state.projects,
 })
 export default connect(mapStateToProps, )(ProjectNameField)

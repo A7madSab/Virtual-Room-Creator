@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Divider } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 
 import AcceptText from '../text-properties/AcceptText.js'
 

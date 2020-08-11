@@ -10,6 +10,40 @@ export const ProjectReducer = (state = InitalProjectState, action) => {
     }
 }
 
+const initialSceneState = {
+    shareCode: "",
+    sceneId: "",
+    backgroubColor: "",
+    gridHelper: {
+        visible: true,
+        size: "",
+        divid: ""
+    },
+    planeHelper: {
+        visible: false,
+        width: "",
+        hight: "",
+        depth: "",
+        color: ""
+    },
+    skybox: {
+        selectedSkybox: "",
+        gallary: []
+    },
+}
+
+export const sceneReducer = (state = initialSceneState, action) => {
+    switch (action.type) {
+        case "LOAD-SCENE": {
+            state = action.payload;
+            return state;
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
 const initialMeshState = {
     selectedMesh: {},
     meshes: []
@@ -22,7 +56,7 @@ export const meshReducer = (state = initialMeshState, action) => {
         }
         case 'ADD_MESH': {
             let meshNumber = state.meshes.length + 1;
-            let mesh = { ...action.payload, id: "Mesh " + meshNumber }
+            let mesh = { ...action.payload, id: action.payload.type + " " + meshNumber }
             return { selectedMesh: mesh, meshes: [...state.meshes, mesh] }
         }
         case 'DELETE_MESH': {
@@ -54,15 +88,7 @@ export const meshReducer = (state = initialMeshState, action) => {
 
 const initialLightState = {
     selectedLight: {},
-    lights: [
-        {
-            id: "Light 1",
-            type: "Point-Light",
-            position: [5, 5, 5],
-            color: 0xffffff,
-            intensity: 1
-        }
-    ]
+    lights: []
 }
 export const lightReducer = (state = initialLightState, action) => {
     switch (action.type) {
