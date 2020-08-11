@@ -36,7 +36,7 @@ const ProjectDetail = ({ match }) => {
             <Typography className={classes.textHeader} variant="h2">Project Detail</Typography>
             <Grid container justify="space-around" alignItems="center" direction="row">
                 <Grid item>
-                    <QRCode size={250} value={`http://localhost:3000/ ${id}`} />
+                    <QRCode size={250} value={`https://virtualroomcreator.herokuapp.com/ ${id}`} />
                     <Typography className={classes.textHeader} style={{ textDecoration: "underline" }}>
                         Scan to View on Mobile
                     </Typography>
