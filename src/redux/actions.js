@@ -92,7 +92,8 @@ export const defaultGeometry = {
     visible: true,
     locked: false,
     position: [0, 0, 0],
-    dimensions: [2.0, 2.0, 2.0],
+    dimensions: [3.0, 3.0, 2.0],
+    rotation: [0, 0, 0],
     material: "Normal",
     scale: 1,
     color: 0xff3300,
@@ -105,6 +106,7 @@ export const defaultPoly = {
     scale: 1,
     visible: true,
     position: [0, 0, 0],
+    rotation: [0, 0, 0],
 }
 export const defaultText = {
     id: "",
@@ -116,6 +118,7 @@ export const defaultText = {
     material: "Normal",
     height: 5,
     position: [0, 0, 0],
+    rotation: [0, 0, 0],
 }
 
 export const addMesh = (type, payload) => {
@@ -150,6 +153,12 @@ export const addMesh = (type, payload) => {
             type: "ADD_MESH",
             payload: { ...defaultText, text: payload }
         }
+}
+export const copyMesh = () => {
+    return ({
+        type: "COPY_MESH",
+        payload: {}
+    });
 }
 export const deleteMesh = (meshId) => {
     return ({

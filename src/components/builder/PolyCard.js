@@ -24,7 +24,7 @@ const useStyle = makeStyles((theme) => ({
 
 const PolyCard = ({ addMesh, model, close }) => {
     const classes = useStyle();
-    const handleOnCardPress = (model) => {
+    const handleOnCardPress =  (model) => {
         addMesh("Poly", getModelURL(model))
         close()
     }

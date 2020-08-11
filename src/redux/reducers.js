@@ -59,6 +59,19 @@ export const meshReducer = (state = initialMeshState, action) => {
             let mesh = { ...action.payload, id: action.payload.type + " " + meshNumber }
             return { selectedMesh: mesh, meshes: [...state.meshes, mesh] }
         }
+        case 'COPY_MESH': {
+            let meshNumber = state.meshes.length + 1;
+            let mesh = { 
+                ...state.selectedMesh, 
+                id: action.payload.type + " " + meshNumber,
+                position: [
+                    state.selectedMesh.position[0] + 1,
+                    state.selectedMesh.position[1] + 1,
+                    state.selectedMesh.position[2] + 1,
+                ]
+            }
+            return { selectedMesh: mesh, meshes: [...state.meshes, mesh] }
+        }
         case 'DELETE_MESH': {
             return {
                 selectedMesh: {},

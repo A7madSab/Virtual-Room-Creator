@@ -37,11 +37,12 @@ const Geometry = (props) => {
     return (
         <>
             <mesh
+                rotation={state.rotation ? [state.rotation[0], state.rotation[1], state.rotation[2]] : [0,0,0]}
                 scale={[state.scale, state.scale, state.scale,]}
                 ref={ref}
                 visible={state.visible}
                 position={state.position}
-                onClick={(event) => {store.dispatch(selectMesh(props.name, "MESH"));}}
+                onClick={(event) => hovered === false ? store.dispatch(selectMesh(props.name, "MESH")) : null}
                 castShadow={state.castShadow}
                 receiveShadow={state.receiveShadow}
                 {...props}

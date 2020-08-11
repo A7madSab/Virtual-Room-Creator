@@ -25,12 +25,13 @@ const ObjModel = (props) => {
             material.preload()
             new OBJLoader().setMaterials(material).load(props.url, set)
         })
-    }, [props.url, props.murl])
+    }, [props.url, props.murl,])
 
     return obj
         ? (
             <>
                 <primitive
+                    rotation={state.rotation ? [state.rotation[0], state.rotation[1], state.rotation[2]] : [0,0,0]}
                     scale={[state.scale, state.scale, state.scale]}
                     ref={ref}
                     position={state.position}

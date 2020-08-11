@@ -29,9 +29,9 @@ const Light = (props) => {
             { spotLight && <spotLight ref={ref} position={state.position} args={[state.color, state.intensity]}/>}
             { ambientLight && <ambientLight ref={ref} position={state.position} args={[state.color, state.intensity]}/>}
 
-            {pointLight && light != null ? <pointLightHelper args={[light]} ref={lightHelperRef} onClick={() => store.dispatch(selectLight(props.name, "Light"))}/> : null}
-            {directionalLight && light != null ? <directionalLightHelper args={[light]} ref={lightHelperRef} onClick={() => store.dispatch(selectLight(props.name, "Light"))}/> : null}
-            {spotLight && light != null ? <spotLightHelper args={[light]} ref={lightHelperRef} onClick={() => store.dispatch(selectLight(props.name, "Light"))}/> : null}
+            {pointLight && light != null ? <pointLightHelper args={[light]} ref={lightHelperRef} onClick={() => hovered === false ? store.dispatch(selectLight(props.name, "Light")) : null}/> : null}
+            {directionalLight && light != null ? <directionalLightHelper args={[light]} ref={lightHelperRef} onClick={() => hovered === false ? store.dispatch(selectLight(props.name, "Light")) : null}/> : null}
+            {spotLight && light != null ? <spotLightHelper args={[light]} ref={lightHelperRef} onClick={() => hovered === false ? store.dispatch(selectLight(props.name, "Light")) : null}/> : null}
             
             {hovered ? light && <TransformControl orbit={props.orbit} light={light} /> : null}
         </>
