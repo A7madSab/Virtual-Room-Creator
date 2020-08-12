@@ -34,22 +34,20 @@ function Scene({ meshReducer, lightReducer}, props) {
                 meshReducer.meshes.map((mesh, key) => {
                     if (mesh.type === "Poly") {
                         return (
-                            <Suspense key={key} fallback={null}>
+                            <Suspense key={mesh.id} fallback={null}>
                                 <Model orbit={orbitRef} key={mesh.id} name={mesh.id} url={mesh.url} murl={mesh.murl} />
                             </Suspense>
                         )
                     }
                     if (mesh.type === "Text") {
                         return (
-                            <Suspense key={key} fallback={null}>
+                            <Suspense key={mesh.id} fallback={null}>
                                 <TextGeometry orbit={orbitRef} key={mesh.id} name={mesh.id} text={mesh.text} />
                             </Suspense>
                         )
                     }
                     return (
-                        <Suspense key={key} fallback={null}>
-                            <Geometry orbit={orbitRef} key={mesh.id} name={mesh.id} />
-                        </Suspense>
+                        <Geometry orbit={orbitRef} key={mesh.id} name={mesh.id} />
                     )
                 })
             }

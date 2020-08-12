@@ -62,7 +62,7 @@ const TabsSection = ({ meshes, lights }) => {
             <PropertiesTab value={value} index={0} contentType={propertiesContent} />
             <ComponentsTab value={value} index={1} />
             {
-                propertiesContent === "Mesh"
+                propertiesContent === "Mesh" || propertiesContent === "Text"
                 ? <ActionButtonPopover anchorPopover={PaperRef.current} />
                 : null
             }

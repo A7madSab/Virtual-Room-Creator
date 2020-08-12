@@ -46,7 +46,8 @@ export const sceneReducer = (state = initialSceneState, action) => {
 
 const initialMeshState = {
     selectedMesh: {},
-    meshes: []
+    meshes: [],
+    lastMashId: 0,
 }
 export const meshReducer = (state = initialMeshState, action) => {
     switch (action.type) {
@@ -55,27 +56,28 @@ export const meshReducer = (state = initialMeshState, action) => {
             return state;
         }
         case 'ADD_MESH': {
-            let meshNumber = state.meshes.length + 1;
+            let meshNumber = state.lastMashId ? state.lastMashId + 1 : 1;
             let mesh = { ...action.payload, id: action.payload.type + " " + meshNumber }
-            return { selectedMesh: mesh, meshes: [...state.meshes, mesh] }
+            return { selectedMesh: mesh, meshes: [...state.meshes, mesh], lastMashId: meshNumber }
         }
         case 'COPY_MESH': {
-            let meshNumber = state.meshes.length + 1;
+            let meshNumber = state.lastMashId ? state.lastMashId + 1 : 1;
             let mesh = { 
                 ...state.selectedMesh, 
-                id: action.payload.type + " " + meshNumber,
+                id: state.selectedMesh.type + " " + meshNumber,
                 position: [
                     state.selectedMesh.position[0] + 1,
                     state.selectedMesh.position[1] + 1,
                     state.selectedMesh.position[2] + 1,
                 ]
             }
-            return { selectedMesh: mesh, meshes: [...state.meshes, mesh] }
+            return { selectedMesh: mesh, meshes: [...state.meshes, mesh], lastMashId: meshNumber }
         }
         case 'DELETE_MESH': {
             return {
+                ...state,
                 selectedMesh: {},
-                meshes: state.meshes.filter(mesh => mesh.id !== action.payload)
+                meshes: state.meshes.filter(mesh => mesh.id !== action.payload),
             }
         }
         case 'UPDATE_MESH': {
@@ -101,7 +103,8 @@ export const meshReducer = (state = initialMeshState, action) => {
 
 const initialLightState = {
     selectedLight: {},
-    lights: []
+    lights: [],
+    lastLightId: 0
 }
 export const lightReducer = (state = initialLightState, action) => {
     switch (action.type) {
@@ -110,12 +113,13 @@ export const lightReducer = (state = initialLightState, action) => {
             return state;
         }
         case 'ADD_LIGHT': {
-            let lightNumber = state.lights.length + 1;
+            let lightNumber = state.lastLightId ? state.lastLightId + 1 : 1;
             let light = { ...action.payload, id: "Light " + lightNumber }
-            return { selectedLight: light, lights: [...state.lights, light] }
+            return { selectedLight: light, lights: [...state.lights, light], lastLightId: lightNumber}
         }
         case 'DELETE_LIGHT': {
             return {
+                ...state,
                 selectedLight: {},
                 lights: state.lights.filter(light => light.id !== action.payload)
             }

@@ -92,7 +92,7 @@ export const defaultGeometry = {
     visible: true,
     locked: false,
     position: [0, 0, 0],
-    dimensions: [3.0, 3.0, 2.0],
+    dimensions: [2.0, 2.0, 2.0],
     rotation: [0, 0, 0],
     material: "Normal",
     scale: 1,

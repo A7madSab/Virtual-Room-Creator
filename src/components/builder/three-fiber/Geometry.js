@@ -13,7 +13,6 @@ const Geometry = (props) => {
     const [ref, mesh] = useResource()
     const boxHelperRef = useRef()
 
-
     let hovered = store.getState().meshReducer.selectedMesh.id === props.name ? true : false
     let state = store.getState().meshReducer.meshes.find(({ id }) => id === props.name)
 
@@ -37,12 +36,11 @@ const Geometry = (props) => {
     return (
         <>
             <mesh
-                rotation={state.rotation ? [state.rotation[0], state.rotation[1], state.rotation[2]] : [0,0,0]}
-                scale={[state.scale, state.scale, state.scale,]}
                 ref={ref}
                 visible={state.visible}
                 position={state.position}
-                onClick={(event) => hovered === false ? store.dispatch(selectMesh(props.name, "MESH")) : null}
+                onClick={(event) => hovered === false ?  store.dispatch(selectMesh(props.name, "MESH")) : null}
+                rotation={state.rotation ? [state.rotation[0], state.rotation[1], state.rotation[2]] : [0,0,0]}
                 castShadow={state.castShadow}
                 receiveShadow={state.receiveShadow}
                 {...props}

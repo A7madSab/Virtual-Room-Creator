@@ -40,7 +40,8 @@ const TextGeometry = ({ text, vAlign = "center", hAlign = "center", size = 1, co
                 ref={ref}
                 visible={state.visible}
                 position={state.position}
-                onClick={() => store.dispatch(selectMesh(props.name, "MESH"))}
+                onClick={() => hovered === false ?  store.dispatch(selectMesh(props.name, "MESH")) : null}
+                rotation={state.rotation ? [state.rotation[0], state.rotation[1], state.rotation[2]] : [0,0,0]}
                 castShadow={state.castShadow}
                 receiveShadow={state.receiveShadow}
                 {...props}
