@@ -8,8 +8,11 @@ import Light from "../three-fiber/Light.js";
 import Model from "../three-fiber/Model";
 import TextGeometry from "../three-fiber/TextGeometry.js";
 import VrButtom from "../three-fiber/VrButton.js";
+import GridHelper from "../three-fiber/GridHelper.js";
 
-function Scene({ meshReducer, lightReducer}, props) {
+
+
+function Scene({ meshReducer, lightReducer, sceneReducer}, props) {
     const orbitRef = createRef();
     return (
         <Canvas
@@ -24,7 +27,12 @@ function Scene({ meshReducer, lightReducer}, props) {
         >
             <OrbitControl ref={orbitRef} />
             <VrButtom />
-            <gridHelper args={[50, 50, 0xff1744]} />
+            <GridHelper 
+                visible={sceneReducer.gridHelper.visible} 
+                size={sceneReducer.gridHelper.size} 
+                divid={sceneReducer.gridHelper.divid}
+            />
+            
             {
                 lightReducer.lights.map((light, key) => {
                     return <Light orbit={orbitRef} key={light.id} name={light.id} />
@@ -58,6 +66,7 @@ function Scene({ meshReducer, lightReducer}, props) {
 const mapStateToProps = (state) => ({
     meshReducer: state.meshReducer,
     lightReducer: state.lightReducer,
+    sceneReducer: state.sceneReducer,
 });
 const mapDispatchToProps = dispatch => ({
 

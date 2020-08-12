@@ -18,9 +18,9 @@ const defaultScene = {
     sceneId: "",
     backgroubColor: "#212121",
     gridHelper: {
-        visible: true,
-        size: "50",
-        divid: "50"
+        visible: false,
+        size: "10",
+        divid: "30"
     },
     planeHelper: {
         visible: false,
@@ -85,6 +85,14 @@ export const deleteProject = ({ projectId, email }) => async dispatch => {
         console.log("error creating project", err)
     }
 }
+
+export const updateScene = (newScene) => {
+    return ({
+        type: "LOAD-SCENE",
+        payload: newScene
+    })
+}
+
 
 export const defaultGeometry = {
     id: "",

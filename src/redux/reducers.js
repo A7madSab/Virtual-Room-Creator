@@ -15,7 +15,7 @@ const initialSceneState = {
     sceneId: "",
     backgroubColor: "",
     gridHelper: {
-        visible: true,
+        visible: false,
         size: "",
         divid: ""
     },
