@@ -1,6 +1,6 @@
 import React from 'react';
 import { CirclePicker } from 'react-color';
-import { Paper, makeStyles } from '@material-ui/core';
+import { Paper, makeStyles, Divider } from '@material-ui/core';
 
 import { connect } from "react-redux";
 import { updateLight } from "../../../redux/actions.js";
@@ -38,6 +38,7 @@ const LightColor = ({ lights, updateLight }) => {
     ];
 
     return (
+        <>
         <Paper className={classes.root} elevation={0} >
             <CirclePicker
                 colors={myColors}
@@ -47,6 +48,8 @@ const LightColor = ({ lights, updateLight }) => {
                 onChange={handelColor}
             />
         </Paper>
+        <Divider />
+        </>
     );
 }
 

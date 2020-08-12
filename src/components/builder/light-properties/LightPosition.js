@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Grid } from '@material-ui/core';
+import { TextField, Grid, Divider } from '@material-ui/core';
 
 import { connect } from "react-redux"
 
@@ -13,9 +13,9 @@ const useStyles = makeStyles((theme) => ({
     },
     inputfield: {
         width: '100%',
-        color: '#eeeeee',  
+        color: '#eeeeee',
         marginLeft: '0px',
-        paddingLeft: '0px', 
+        paddingLeft: '0px',
         '& label.Mui-focused': {
             color: 'white',
         },
@@ -39,55 +39,57 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const LightPosition =  ({ lights }) => {
+const LightPosition = ({ lights }) => {
     const classes = useStyles();
     let position = lights.selectedLight.position;
     return (
-        <Grid container spacing={1} className={classes.root}>
-            <Grid item xs={4} style={{paddingLeft:"0px"}}>
-                <TextField
-                    id="outlined-basic"
-                    variant="outlined"
-                    size="small"
-                    label="X"
-                    className={classes.inputfield}
-                    placeholder= "0.0"
-                    InputProps={{
-                        className: classes.inputfield,
-                    }}
-                    value={position != null ? Number(position[0]).toFixed(2) : "0.0"}
-                />
+        <>
+            <Grid container spacing={1} className={classes.root}>
+                <Grid item xs={4} style={{ paddingLeft: "0px" }}>
+                    <TextField
+                        id="outlined-basic"
+                        variant="outlined"
+                        size="small"
+                        label="X"
+                        className={classes.inputfield}
+                        placeholder="0.0"
+                        InputProps={{
+                            className: classes.inputfield,
+                        }}
+                        value={position != null ? Number(position[0]).toFixed(2) : "0.0"}
+                    />
+                </Grid>
+                <Grid item xs={4} style={{ paddingLeft: "0px" }}>
+                    <TextField
+                        id="outlined-basic"
+                        variant="outlined"
+                        size="small"
+                        label="Y"
+                        className={classes.inputfield}
+                        placeholder="0.0"
+                        InputProps={{
+                            className: classes.inputfield,
+                        }}
+                        value={position != null ? Number(position[1]).toFixed(2) : "0.0"}
+                    />
+                </Grid>
+                <Grid item xs={4} style={{ paddingLeft: "0px" }}>
+                    <TextField
+                        id="outlined-basic"
+                        variant="outlined"
+                        size="small"
+                        label="Z"
+                        className={classes.inputfield}
+                        placeholder="0.0"
+                        InputProps={{
+                            className: classes.inputfield,
+                        }}
+                        value={position != null ? Number(position[2]).toFixed(2) : "0.0"}
+                    />
+                </Grid>
             </Grid>
-            <Grid item xs={4} style={{paddingLeft:"0px"}}>
-                <TextField
-                    id="outlined-basic"
-                    variant="outlined"
-                    size="small"
-                    label="Y"
-                    className={classes.inputfield}
-                    placeholder="0.0"
-                    InputProps={{
-                        className: classes.inputfield,
-                    }}
-                    value={position != null ? Number(position[1]).toFixed(2) : "0.0"}
-                />
-            </Grid>
-            <Grid item xs={4} style={{paddingLeft:"0px"}}>
-                <TextField
-                    id="outlined-basic"
-                    variant="outlined"
-                    size="small"
-                    label="Z"
-                    className={classes.inputfield}
-                    placeholder="0.0"
-                    InputProps={{
-                        className: classes.inputfield,
-                    }}
-                    value={position != null ? Number(position[2]).toFixed(2) : "0.0"}
-                />
-            </Grid>
-        </Grid>
-
+            <Divider />
+        </>
     );
 }
 
