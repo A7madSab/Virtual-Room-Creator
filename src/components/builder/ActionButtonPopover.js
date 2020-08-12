@@ -1,16 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { makeStyles, IconButton, Popper, Divider } from "@material-ui/core";
-
-
-import ExposurePlus1OutlinedIcon from '@material-ui/icons/ExposurePlus1Outlined';
-import ExposureNeg1OutlinedIcon from '@material-ui/icons/ExposureNeg1Outlined';
-
-
+import { makeStyles, Popper } from "@material-ui/core";
 
 import DeleteMeshButton from "../builder/actionsButtons/DeleteButton.js"
 import RotationMeshButton from "../builder/actionsButtons/RotationMeshButton.js"
 import CopyMeshButton from "../builder/actionsButtons/CopyMeshButton.js"
+import ScaleMeshButton from "../builder/actionsButtons/ScaleMeshButton.js"
 
 const useStyle = makeStyles((theme) => ({
     popover: {
@@ -44,20 +39,7 @@ export default function ActionButtonPopover(props) {
         >
             <CopyMeshButton />
             <RotationMeshButton />
-            <IconButton
-                className={classes.button}
-                aria-haspopup="true"
-            >
-                <ExposurePlus1OutlinedIcon fontSize="large" />
-            </IconButton>
-            <Divider />
-            <IconButton
-                className={classes.button}
-                aria-haspopup="true"
-            >
-                <ExposureNeg1OutlinedIcon fontSize="large" />
-            </IconButton>
-            <Divider />
+            <ScaleMeshButton />
             <DeleteMeshButton />           
         </Popper>
     );

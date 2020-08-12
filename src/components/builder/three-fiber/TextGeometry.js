@@ -36,7 +36,7 @@ const TextGeometry = ({ text, vAlign = "center", hAlign = "center", size = 1, co
     return (
         <>
             <mesh
-                scale={[state.scale * 0.1, state.scale * 0.1, state.scale * 0.1]}
+                scale={[state.scale, state.scale, state.scale]}
                 ref={ref}
                 visible={state.visible}
                 position={state.position}
