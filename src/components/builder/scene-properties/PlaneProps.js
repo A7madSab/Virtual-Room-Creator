@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Grid, Switch } from '@material-ui/core';
 
 import { connect } from "react-redux";
+import { updateScene } from "../../../redux/actions.js";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -12,17 +13,16 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: '0px'
     },
     root2: {
-        marginTop: '0%',
+        margin: '0px',
+        padding: '0px',
         marginBottom: '1%',
-        marginLeft: '0px',
-        paddingLeft: '0px'
     },
     inputfield: {
         width: '100%',
-        color: '#eeeeee',  
+        color: '#eeeeee',
         paddingTop: '0px',
         marginLeft: '0px',
-        paddingLeft: '0px', 
+        paddingLeft: '0px',
         '& label.Mui-focused': {
             color: 'white',
         },
@@ -48,90 +48,100 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const PlaneProps = () => {
+const PlaneProps = ({ sceneReducer, updateScene }) => {
     const classes = useStyles();
-    const [state, setState] = React.useState({
-        checkedA: true,
-        checkedB: true,
-    });
+    const [visible, setVisible] = React.useState(false);
+    const [width, setWidth] = React.useState("10.0");
+    const [height, setHeight] = React.useState("10.0");
+    const [color, setColor] = React.useState("#00b0ff");
 
-    const handleChange = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
-    };
+    React.useEffect(() => {
+        setVisible(sceneReducer.planeHelper.visible);
+    }, [sceneReducer.planeHelper])
+
+    function updateWidth() {
+        updateScene({ ...sceneReducer, planeHelper: { ...sceneReducer.planeHelper, width: width } })
+    }
+
+    function updateHeight() {
+        updateScene({ ...sceneReducer, planeHelper: { ...sceneReducer.planeHelper, height: height } })
+    }
+
+    function updateColor() {
+        updateScene({ ...sceneReducer, planeHelper: { ...sceneReducer.planeHelper, color: color } })
+    }
+
+    React.useEffect(updateWidth, [width]);
+    React.useEffect(updateHeight, [height]);
+    React.useEffect(updateColor, [color]);
     return (
         <>
             <Grid container spacing={1} className={classes.root}>
-            <Grid item xs={5} style={{paddingLeft:"0px"}}>
-                <TextField
-                    id="outlined-basic"
-                    variant="outlined"
-                    size="small"
-                    label="Plane Width"
-                    className={classes.inputfield}
-                    placeholder= "0"
-                    defaultValue="50"
-                    InputProps={{
-                        className: classes.inputfield,
-                    }}
-                />
+                <Grid item xs={5} style={{ paddingLeft: "0px" }}>
+                    <TextField
+                        variant="outlined"
+                        size="small"
+                        label="Plane Width"
+                        className={classes.inputfield}
+                        placeholder="5.0"
+                        InputProps={{
+                            className: classes.inputfield,
+                        }}
+                        value={width}
+                        onChange={(e) => setWidth(e.target.value)}
+                        disabled={!visible}
+                    />
+                </Grid>
+                <Grid item xs={5} style={{ paddingLeft: "0px" }}>
+                    <TextField
+                        variant="outlined"
+                        size="small"
+                        label="Plane Height"
+                        className={classes.inputfield}
+                        placeholder="5.0"
+                        InputProps={{
+                            className: classes.inputfield,
+                        }}
+                        value={height}
+                        onChange={(e) => setHeight(e.target.value)}
+                        disabled={!visible}
+                    />
+                </Grid>
+                <Grid item xs={2} style={{ paddingLeft: "0px", paddingTop: '7%' }}>
+                    <Switch checked={visible}
+                        size="small"
+                        onChange={() => updateScene({ ...sceneReducer, planeHelper: { ...sceneReducer.planeHelper, visible: !visible } })}
+                        color="secondary"
+                        style={{ float: 'right', alignContent: 'right' }}
+                    />
+                </Grid>
             </Grid>
-            <Grid item xs={5} style={{paddingLeft:"0px"}}>
-                <TextField
-                    id="outlined-basic"
-                    variant="outlined"
-                    size="small"
-                    label="Plane Height"
-                    className={classes.inputfield}
-                    placeholder="0"
-                    defaultValue="50"
-                    InputProps={{
-                        className: classes.inputfield,
-                    }}
-                />
+            <Grid container spacing={1} className={classes.root2}>
+                <Grid item xs={12} style={{ padding: "0px", paddingRight: '10px' }}>
+                    <TextField
+                        variant="outlined"
+                        size="small"
+                        label="Plane Color"
+                        className={classes.inputfield}
+                        placeholder="#00b0ff"
+                        InputProps={{
+                            className: classes.inputfield,
+                        }}
+                        value={color}
+                        onChange={(e) => setColor(e.target.value)}
+                        disabled={!visible}
+                    />
+                </Grid>
+
             </Grid>
-            <Grid item xs={2} style={{paddingLeft:"0px",paddingTop: '7%'}}>
-            <Switch checked={state.checkedB}
-            size="small"
-                    onChange={handleChange}
-                    name="checkedB"
-                    color="secondary"
-                    style={{float: 'right', alignContent: 'right'}} />
-            </Grid>
-        </Grid>
-        <Grid container spacing={1} className={classes.root2}>
-            <Grid item xs={5} style={{paddingLeft:"0px"}}>
-                <TextField
-                    id="outlined-basic"
-                    variant="outlined"
-                    size="small"
-                    label="Plane Depth"
-                    className={classes.inputfield}
-                    placeholder= "0"
-                    defaultValue="50"
-                    InputProps={{
-                        className: classes.inputfield,
-                    }}
-                />
-            </Grid>
-            <Grid item xs={5} style={{paddingLeft:"0px"}}>
-                <TextField
-                    id="outlined-basic"
-                    variant="outlined"
-                    size="small"
-                    label="Plane Color"
-                    className={classes.inputfield}
-                    placeholder="0"
-                    defaultValue="50"
-                    InputProps={{
-                        className: classes.inputfield,
-                    }}
-                />
-            </Grid>
-            
-        </Grid>
         </>
     );
 }
 const mapStateToProps = state => ({
+    sceneReducer: state.sceneReducer
 })
-export default connect(mapStateToProps,)(PlaneProps)
+
+const mapDispatchToProps = dispatch => ({
+    updateScene: (newScene) => dispatch(updateScene(newScene))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(PlaneProps)

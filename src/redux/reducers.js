@@ -16,14 +16,13 @@ const initialSceneState = {
     backgroubColor: "",
     gridHelper: {
         visible: false,
-        size: "",
-        divid: ""
+        size: 0,
+        divid: 0
     },
     planeHelper: {
         visible: false,
-        width: "",
-        hight: "",
-        depth: "",
+        width: 0,
+        height: 0,
         color: ""
     },
     skybox: {

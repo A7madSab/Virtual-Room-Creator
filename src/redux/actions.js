@@ -19,15 +19,14 @@ const defaultScene = {
     backgroubColor: "#212121",
     gridHelper: {
         visible: false,
-        size: "10",
-        divid: "30"
+        size: "10.0",
+        divid: "30.0"
     },
     planeHelper: {
         visible: false,
-        width: "10",
-        hight: "10",
-        depth: "1",
-        color: "#fafafa"
+        width: "10.0",
+        height: "10.0",
+        color: "#00b0ff"
     },
     skybox: {
         visible: false,

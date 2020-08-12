@@ -9,8 +9,7 @@ import Model from "../three-fiber/Model";
 import TextGeometry from "../three-fiber/TextGeometry.js";
 import VrButtom from "../three-fiber/VrButton.js";
 import GridHelper from "../three-fiber/GridHelper.js";
-
-
+import Plane from "../three-fiber/Plane.js";
 
 function Scene({ meshReducer, lightReducer, sceneReducer}, props) {
     const orbitRef = createRef();
@@ -27,11 +26,18 @@ function Scene({ meshReducer, lightReducer, sceneReducer}, props) {
         >
             <OrbitControl ref={orbitRef} />
             <VrButtom />
+            <Plane
+                visible={sceneReducer.planeHelper.visible} 
+                width={sceneReducer.planeHelper.width} 
+                height={sceneReducer.planeHelper.height}
+                color={sceneReducer.planeHelper.color}
+            />
             <GridHelper 
                 visible={sceneReducer.gridHelper.visible} 
                 size={sceneReducer.gridHelper.size} 
                 divid={sceneReducer.gridHelper.divid}
             />
+           
             
             {
                 lightReducer.lights.map((light, key) => {

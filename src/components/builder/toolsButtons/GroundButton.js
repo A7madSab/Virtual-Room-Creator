@@ -5,6 +5,9 @@ import { BlurOn } from "@material-ui/icons"
 import GroundImage from "../../../assets/builder/ground-popover.png";
 import PopoverCard from "../PopoverCard.js";
 
+import store from "../../../redux/store.js";
+import { updateScene } from "../../../redux/actions.js"
+
 const useStyle = makeStyles((theme) => ({
     button: {
         color: "white",
@@ -39,6 +42,13 @@ function GroundButton() {
                 className={classes.button}
                 onMouseEnter={handlePopoverOpen}
                 onMouseLeave={handlePopoverClose}
+                onClick={() => store.dispatch(updateScene({ 
+                    ...store.getState().sceneReducer, 
+                    planeHelper: { 
+                        ...store.getState().sceneReducer.planeHelper, 
+                        visible: true 
+                    } 
+                }))}
                 aria-haspopup="true"
             >
                 <BlurOn fontSize="large" />

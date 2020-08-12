@@ -45,8 +45,8 @@ const useStyles = makeStyles((theme) => ({
 const GridProps = ({sceneReducer, updateScene}) => {
     const classes = useStyles();
     const [visible, setVisible] = React.useState(false);
-    const [size, setSize] = React.useState(10);
-    const [divid, setDivid] = React.useState(30);
+    const [size, setSize] = React.useState("10.0");
+    const [divid, setDivid] = React.useState("30.0");
 
     React.useEffect(() => {
         setVisible(sceneReducer.gridHelper.visible);
