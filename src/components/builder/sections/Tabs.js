@@ -9,7 +9,7 @@ import ActionButtonPopover from "../ActionButtonPopover.js"
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: '100%'
+        height: '100%',
     },
     tabs: {
         backgroundColor: '#424242',

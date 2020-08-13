@@ -51,9 +51,9 @@ const useStyles = makeStyles((theme) => ({
 const PlaneProps = ({ sceneReducer, updateScene }) => {
     const classes = useStyles();
     const [visible, setVisible] = React.useState(false);
-    const [width, setWidth] = React.useState("10.0");
-    const [height, setHeight] = React.useState("10.0");
-    const [color, setColor] = React.useState("#00b0ff");
+    const [width, setWidth] = React.useState(sceneReducer.planeHelper.width);
+    const [height, setHeight] = React.useState(sceneReducer.planeHelper.height);
+    const [color, setColor] = React.useState(sceneReducer.planeHelper.color);
 
     React.useEffect(() => {
         setVisible(sceneReducer.planeHelper.visible);
@@ -72,8 +72,13 @@ const PlaneProps = ({ sceneReducer, updateScene }) => {
     }
 
     React.useEffect(updateWidth, [width]);
+    React.useEffect(() => setWidth(sceneReducer.planeHelper.width), [sceneReducer.planeHelper.width]);
+
     React.useEffect(updateHeight, [height]);
+    React.useEffect(() => setHeight(sceneReducer.planeHelper.height), [sceneReducer.planeHelper.height]);
+
     React.useEffect(updateColor, [color]);
+    React.useEffect(() => setColor(sceneReducer.planeHelper.color), [sceneReducer.planeHelper.color]);
     return (
         <>
             <Grid container spacing={1} className={classes.root}>
