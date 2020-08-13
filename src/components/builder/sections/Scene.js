@@ -10,6 +10,7 @@ import TextGeometry from "../three-fiber/TextGeometry.js";
 import VrButtom from "../three-fiber/VrButton.js";
 import GridHelper from "../three-fiber/GridHelper.js";
 import Plane from "../three-fiber/Plane.js";
+import SkyBox from "../three-fiber/SkyBox.js";
 // import { Sky, Stars, PositionalAudio } from "drei"
 
 function Scene({ meshReducer, lightReducer, sceneReducer, asViewer }, props) {
@@ -27,6 +28,7 @@ function Scene({ meshReducer, lightReducer, sceneReducer, asViewer }, props) {
         >
             <OrbitControl ref={orbitRef} />
             {asViewer && <VrButtom />}
+            <SkyBox />
             <Plane
                 visible={sceneReducer.planeHelper.visible}
                 width={sceneReducer.planeHelper.width}

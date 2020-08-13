@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Grid, Switch } from '@material-ui/core';
 
 import { connect } from "react-redux";
+import { addSkybox, selectSkybox, deleteSkybox } from "../../../redux/actions.js";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const SkyBoxProps = () => {
+const SkyBoxProps = ({ scene, addSkybox, selectSkybox, deleteSkybox }) => {
     const classes = useStyles();
     const [state, setState] = React.useState({
         checkedA: true,
@@ -52,21 +53,35 @@ const SkyBoxProps = () => {
     const handleChange = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
+
+    const handleFileUpload = (e) => {
+        const { files } = e.target
+        const keys = Object.keys(files)
+
+        keys.forEach(index => {
+            const reader = new FileReader()
+            reader.addEventListener("load", () => {
+                addSkybox(reader.result)
+            }, false)
+            reader.readAsDataURL(files[index])
+        })
+    }
     return (
         <>
             <Grid container spacing={1} className={classes.root}>
                 <Grid item xs={10} style={{ paddingLeft: "0px" }}>
                     <TextField
-                        id="outlined-basic"
                         variant="outlined"
                         size="small"
                         label="SkyBox"
                         className={classes.inputfield}
                         placeholder="example.jpg"
-                        defaultValue="example.jpg"
                         InputProps={{
                             className: classes.inputfield,
                         }}
+                        onDrop={handleFileUpload} 
+                        type="file" 
+                        onChange={handleFileUpload}
                     />
                 </Grid>
                 <Grid item xs={2} style={{ paddingLeft: "0px", paddingTop: '7%' }}>
@@ -83,5 +98,12 @@ const SkyBoxProps = () => {
     );
 }
 const mapStateToProps = state => ({
+    scene: state.sceneReducer
 })
-export default connect(mapStateToProps,)(SkyBoxProps)
+const mapDispatchToProps = dispatch => ({
+    addSkybox: image => dispatch(addSkybox(image)),
+    selectSkybox: image => dispatch(selectSkybox(image)),
+    deleteSkybox: image => dispatch(deleteSkybox(image)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SkyBoxProps)

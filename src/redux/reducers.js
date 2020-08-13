@@ -37,6 +37,27 @@ export const sceneReducer = (state = initialSceneState, action) => {
             state = action.payload;
             return state;
         }
+        case "ADD_SKYBOX":
+            return {
+                ...state, skybox: {
+                    selectedSkybox: action.image,
+                    gallary: [...state.skybox.gallary, action.image]
+                }
+            }
+        case "SELECT_SKYBOX":
+            return {
+                ...state, skybox: {
+                    selectedSkybox: action.image,
+                    gallary: [...state.skybox.gallary]
+                }
+            }
+        case 'DELETE_SKYBOX':
+            const skybox = {
+                selectedSkybox: state.skybox.selectedSkybox,
+                gallary: state.skybox.gallary.filter(image => image !== action.image)
+            }
+            if (skybox.selectedSkybox === action.image) skybox.selectedSkybox = ""
+            return { ...state, skybox: skybox }
         default: {
             return state;
         }

@@ -117,6 +117,24 @@ export const updateScene = (newScene) => {
     })
 }
 
+export const addSkybox = (image) => {
+    return({
+        type: "ADD_SKYBOX",
+        image
+    });
+}
+export const selectSkybox = (image) => {
+    return({
+        type: "SELECT_SKYBOX",
+        image
+    });
+}
+export const deleteSkybox = (image) => {
+    return({
+        type: "DELETE_SKYBOX",
+        image
+    })
+}
 
 export const defaultGeometry = {
     id: "",
