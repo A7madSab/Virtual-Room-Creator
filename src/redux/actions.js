@@ -46,22 +46,47 @@ export const openProject = ({ email }, projectid) => async dispatch => {
 
         console.log(currentProject.projectid)
         const scene = await getSceneByProjectId(currentProject.projectid);
-        if(scene.state.sceneReducer) {
-            dispatch({ type: "LOAD-SCENE", payload: scene.state.sceneReducer});
-            dispatch({ type: "LOAD-MESH",  payload: scene.state.meshReducer});
-            dispatch({ type: "LOAD-LIGHT", payload: scene.state.lightReducer});
+        if (scene.state.sceneReducer) {
+            dispatch({ type: "LOAD-SCENE", payload: scene.state.sceneReducer });
+            dispatch({ type: "LOAD-MESH", payload: scene.state.meshReducer });
+            dispatch({ type: "LOAD-LIGHT", payload: scene.state.lightReducer });
         }
         else {
-            dispatch({ 
-                type: "LOAD-SCENE", 
-                payload: {...defaultScene, shareCode: scene.projectId, sceneId: scene.id}
+            dispatch({
+                type: "LOAD-SCENE",
+                payload: { ...defaultScene, shareCode: scene.projectId, sceneId: scene.id }
             });
-            dispatch({ type: "LOAD-MESH",  payload: {selectedMesh: {}, meshes: []} });
-            dispatch({ type: "LOAD-LIGHT", payload: {selectedLight: {},lights: []} });
+            dispatch({ type: "LOAD-MESH", payload: { selectedMesh: {}, meshes: [] } });
+            dispatch({ type: "LOAD-LIGHT", payload: { selectedLight: {}, lights: [] } });
         }
 
     } catch (err) {
         console.log("error fetch project", err)
+    }
+}
+
+export const viewProject = porjectId => async dispatch => {
+    try {
+        console.log("id,idd,idd,idd,idd,idd,id", porjectId)
+
+
+        const scene = await getSceneByProjectId(porjectId);
+        if (scene.state.sceneReducer) {
+            dispatch({ type: "LOAD-SCENE", payload: scene.state.sceneReducer });
+            dispatch({ type: "LOAD-MESH", payload: scene.state.meshReducer });
+            dispatch({ type: "LOAD-LIGHT", payload: scene.state.lightReducer });
+        }
+        else {
+            dispatch({
+                type: "LOAD-SCENE",
+                payload: { ...defaultScene, shareCode: scene.projectId, sceneId: scene.id }
+            });
+            dispatch({ type: "LOAD-MESH", payload: { selectedMesh: {}, meshes: [] } });
+            dispatch({ type: "LOAD-LIGHT", payload: { selectedLight: {}, lights: [] } });
+        }
+
+    } catch (err) {
+        console.log("error viewing project", err)
     }
 }
 

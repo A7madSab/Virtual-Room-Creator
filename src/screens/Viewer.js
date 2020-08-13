@@ -3,8 +3,7 @@ import { Grid, makeStyles } from "@material-ui/core"
 
 import SceneSection from "../components/builder/sections/Scene.js"
 
-import { useAuth0 } from "../utils/react-auth0-spa"
-import { openProject } from "../redux/actions"
+import { viewProject } from "../redux/actions"
 import { connect } from "react-redux"
 
 const useStyle = makeStyles({
@@ -19,21 +18,18 @@ const useStyle = makeStyles({
   },
 })
 
-const Builder = ({ openProject, match }) => {
+const Builder = ({ viewProject, match }) => {
   const { id } = match.params
-  const { user } = useAuth0()
-  const classes = useStyle()
 
+  const classes = useStyle()
   useEffect(() => {
-    if (user) {
-      openProject(user, id)
-    }
-  }, [user, openProject, id])
+    viewProject(id)
+  }, [viewProject, id])
 
   return (
     <Grid container className={classes.root}>
       <Grid item xs={12}>
-        <SceneSection asViewer={true}/>
+        <SceneSection asViewer={true} />
       </Grid>
     </Grid>
   )
@@ -44,7 +40,7 @@ const mapStateToProps = ({ projects }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  openProject: (user, projectId) => dispatch(openProject(user, projectId))
+  viewProject: (projectId) => dispatch(viewProject(projectId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Builder)

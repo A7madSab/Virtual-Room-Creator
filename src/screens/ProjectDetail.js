@@ -7,6 +7,7 @@ import makeStyles from "@material-ui/styles/makeStyles"
 import Typography from "@material-ui/core/Typography"
 
 import Planets from "../assets/planets.png"
+
 import { useHistory } from "react-router-dom"
 
 const styles = makeStyles({
@@ -29,7 +30,7 @@ const styles = makeStyles({
 const ProjectDetail = ({ match }) => {
     const { id } = match.params
     const classes = styles()
-    const history = useHistory();
+    const history = useHistory()
 
     return (
         <Grid container justify="center" className={classes.container}>

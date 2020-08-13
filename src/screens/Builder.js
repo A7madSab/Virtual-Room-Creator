@@ -41,7 +41,7 @@ const Builder = ({ openProject, match }) => {
       </Hidden>
 
       <Grid item xs={9}>
-        <SceneSection />
+        <SceneSection asViewer={false} />
       </Grid>
 
       <Hidden mdDown>

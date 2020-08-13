@@ -12,7 +12,7 @@ import GridHelper from "../three-fiber/GridHelper.js";
 import Plane from "../three-fiber/Plane.js";
 import SkyBox from "../three-fiber/SkyBox.js";
 
-function Scene({ meshReducer, lightReducer, sceneReducer}, props) {
+function Scene({ meshReducer, lightReducer, sceneReducer, asViewer }, props) {
     const orbitRef = createRef();
     return (
         <Canvas
@@ -26,21 +26,21 @@ function Scene({ meshReducer, lightReducer, sceneReducer}, props) {
             }}
         >
             <OrbitControl ref={orbitRef} />
+            {asViewer && <VrButtom />}
             <SkyBox />
-            <VrButtom />
             <Plane
-                visible={sceneReducer.planeHelper.visible} 
-                width={sceneReducer.planeHelper.width} 
+                visible={sceneReducer.planeHelper.visible}
+                width={sceneReducer.planeHelper.width}
                 height={sceneReducer.planeHelper.height}
                 color={sceneReducer.planeHelper.color}
             />
-            <GridHelper 
-                visible={sceneReducer.gridHelper.visible} 
-                size={sceneReducer.gridHelper.size} 
+            <GridHelper
+                visible={sceneReducer.gridHelper.visible}
+                size={sceneReducer.gridHelper.size}
                 divid={sceneReducer.gridHelper.divid}
             />
-           
-            
+
+
             {
                 lightReducer.lights.map((light, key) => {
                     return <Light orbit={orbitRef} key={light.id} name={light.id} />
