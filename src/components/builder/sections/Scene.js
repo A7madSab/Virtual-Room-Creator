@@ -10,6 +10,7 @@ import TextGeometry from "../three-fiber/TextGeometry.js";
 import VrButtom from "../three-fiber/VrButton.js";
 import GridHelper from "../three-fiber/GridHelper.js";
 import Plane from "../three-fiber/Plane.js";
+import SkyBox from "../three-fiber/SkyBox.js";
 
 function Scene({ meshReducer, lightReducer, sceneReducer}, props) {
     const orbitRef = createRef();
@@ -25,6 +26,7 @@ function Scene({ meshReducer, lightReducer, sceneReducer}, props) {
             }}
         >
             <OrbitControl ref={orbitRef} />
+            <SkyBox />
             <VrButtom />
             <Plane
                 visible={sceneReducer.planeHelper.visible} 
