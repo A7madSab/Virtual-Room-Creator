@@ -8,10 +8,11 @@ import PloyButton from "../toolsButtons/PolyButton.js";
 import TextButton from "../toolsButtons/TextButton.js";
 import SkyBoxButton from "../toolsButtons/SkyBoxButton.js";
 import GroundButton from "../toolsButtons/GroundButton.js";
+import SoundButton from "../toolsButtons/SoundButton.js";
 
 const useStyle = makeStyles((theme) => ({
     ComponentPanel: {
-        height: '70%',
+        height: '77%',
         width: '50%',
         backgroundColor: '#424242',
         textAlign: 'center',
@@ -33,6 +34,7 @@ function ToolsSection() {
             <TextButton />
             <SkyBoxButton />
             <GroundButton />
+            <SoundButton />
         </Paper>
     );
 }

@@ -10,6 +10,7 @@ import TextGeometry from "../three-fiber/TextGeometry.js";
 import VrButtom from "../three-fiber/VrButton.js";
 import GridHelper from "../three-fiber/GridHelper.js";
 import Plane from "../three-fiber/Plane.js";
+// import { Sky, Stars, PositionalAudio } from "drei"
 
 function Scene({ meshReducer, lightReducer, sceneReducer, asViewer }, props) {
     const orbitRef = createRef();
@@ -38,6 +39,8 @@ function Scene({ meshReducer, lightReducer, sceneReducer, asViewer }, props) {
                 divid={sceneReducer.gridHelper.divid}
             />
 
+            {/* <Sky /> */}
+            {/* <Stars /> */}
 
             {
                 lightReducer.lights.map((light, key) => {
