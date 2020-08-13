@@ -53,8 +53,8 @@ function Scene({ meshReducer, lightReducer, sceneReducer, asViewer }, props) {
             {
                 sceneReducer.sound && <Suspense fallback={null}>
                     <mesh position={[0, 0, 0]}>
-                        <boxBufferGeometry attach="geometry" />
-                        <meshBasicMaterial attach="material" color="hotpink" />
+                        {/* <boxBufferGeometry attach="geometry" /> */}
+                        {/* <meshBasicMaterial attach="material" color="hotpink" /> */}
                         <PositionalAudio
                             url={`/sound/${sceneReducer.sound}`}
                             distance={1}
