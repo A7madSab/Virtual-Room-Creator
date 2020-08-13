@@ -29,6 +29,8 @@ const initialSceneState = {
         selectedSkybox: "",
         gallary: []
     },
+    sky: false,
+    stars: false
 }
 
 export const sceneReducer = (state = initialSceneState, action) => {

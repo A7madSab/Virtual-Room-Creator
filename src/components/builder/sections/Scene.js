@@ -11,7 +11,7 @@ import VrButtom from "../three-fiber/VrButton.js";
 import GridHelper from "../three-fiber/GridHelper.js";
 import Plane from "../three-fiber/Plane.js";
 import SkyBox from "../three-fiber/SkyBox.js";
-// import { Sky, Stars, PositionalAudio } from "drei"
+import { Sky, Stars } from "drei"
 
 function Scene({ meshReducer, lightReducer, sceneReducer, asViewer }, props) {
     const orbitRef = createRef();
@@ -41,8 +41,22 @@ function Scene({ meshReducer, lightReducer, sceneReducer, asViewer }, props) {
                 divid={sceneReducer.gridHelper.divid}
             />
 
-            {/* <Sky /> */}
-            {/* <Stars /> */}
+            {
+                sceneReducer.sky && <Sky
+                    distance={450000}
+                    sunPosition={[0, 1, 0]}
+                />
+            }
+            {
+                sceneReducer.stars && <Stars
+                    radius={100}
+                    depth={50}
+                    count={5000}
+                    factor={4}
+                    saturation={0}
+                    fade
+                />
+            }
 
             {
                 lightReducer.lights.map((light, key) => {
