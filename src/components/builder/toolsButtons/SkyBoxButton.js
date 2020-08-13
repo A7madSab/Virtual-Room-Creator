@@ -91,6 +91,7 @@ function SkyBoxButton({ scene, addSkybox, selectSkybox, deleteSkybox }) {
                         onDrop={handleFileUpload}
                         multiple="multiple"
                         type="file"
+                        accept="image/x-png,image/gif,image/jpeg" 
                         onChange={handleFileUpload}
                     />
                     <Grid container direction="row" justify="space-around">

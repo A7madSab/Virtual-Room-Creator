@@ -7,14 +7,16 @@ import Geometry from "../three-fiber/Geometry.js";
 import Light from "../three-fiber/Light.js";
 import Model from "../three-fiber/Model";
 import TextGeometry from "../three-fiber/TextGeometry.js";
+// import PositionalAudio from "../three-fiber/PositionalAudio";
 import VrButtom from "../three-fiber/VrButton.js";
 import GridHelper from "../three-fiber/GridHelper.js";
 import Plane from "../three-fiber/Plane.js";
 import SkyBox from "../three-fiber/SkyBox.js";
-import { Sky, Stars } from "drei"
+import { Sky, Stars, PositionalAudio } from "drei"
 
 function Scene({ meshReducer, lightReducer, sceneReducer, asViewer }, props) {
     const orbitRef = createRef();
+    console.log(`/sound/${sceneReducer.sound}`)
     return (
         <Canvas
             vr={true}
@@ -47,6 +49,21 @@ function Scene({ meshReducer, lightReducer, sceneReducer, asViewer }, props) {
                     sunPosition={[0, 1, 0]}
                 />
             }
+
+            {
+                sceneReducer.sound && <Suspense fallback={null}>
+                    <mesh position={[0, 0, 0]}>
+                        <boxBufferGeometry attach="geometry" />
+                        <meshBasicMaterial attach="material" color="hotpink" />
+                        <PositionalAudio
+                            url={`/sound/${sceneReducer.sound}`}
+                            distance={1}
+                            // loop
+                        />
+                    </mesh>
+                </Suspense>
+            }
+
             {
                 sceneReducer.stars && <Stars
                     radius={100}

@@ -30,7 +30,8 @@ const initialSceneState = {
         gallary: []
     },
     sky: false,
-    stars: false
+    stars: false,
+    sound: ""
 }
 
 export const sceneReducer = (state = initialSceneState, action) => {
