@@ -1,12 +1,24 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { List } from '@material-ui/core';
+
 import { connect } from 'react-redux';
 
 import ComponentItem from "./ComponentItem.js";
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+      position: 'relative',
+      overflow: 'auto',
+      maxHeight: '80vh',
+    },
+}));
+
 const ComponentsList = ({meshes, lights}) => {
+    const classes = useStyles();
     return (
-        <Grid container>
+        <List className={classes.root}>
             {
                 meshes.meshes.map((mesh, key) => {
                     if(mesh.type === "Poly")
@@ -23,7 +35,7 @@ const ComponentsList = ({meshes, lights}) => {
 
                 })
             }
-        </Grid>
+       </List>
     );
 }
 

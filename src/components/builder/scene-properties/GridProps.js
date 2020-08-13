@@ -61,7 +61,10 @@ const GridProps = ({sceneReducer, updateScene}) => {
     }
 
     React.useEffect(updateSize, [size]);
+    React.useEffect(() => setSize(sceneReducer.gridHelper.size), [sceneReducer.gridHelper.size])
+
     React.useEffect(updateDivid, [divid]);
+    React.useEffect(() => setDivid(sceneReducer.gridHelper.divid), [sceneReducer.gridHelper.divid])
 
     return (
         <>
