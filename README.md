@@ -126,9 +126,9 @@ Come on create your scene here: https://homathon.herokuapp.com/
 
 ## User Manual
 
-<img src="./public/imgs/3.png" alt="archi" width="500">
-<img src="./public/imgs/4.png" alt="archi" width="500">
-<img src="./public/imgs/5.png" alt="archi" width="500">
-<img src="./public/imgs/6.png" alt="archi" width="500">
-<img src="./public/imgs/7.png" alt="archi" width="500">
-<img src="./public/imgs/8.png" alt="archi" width="500">
+<img src="./public/imgs/3.PNG" alt="archi" width="500">
+<img src="./public/imgs/4.PNG" alt="archi" width="500">
+<img src="./public/imgs/5.PNG" alt="archi" width="500">
+<img src="./public/imgs/6.PNG" alt="archi" width="500">
+<img src="./public/imgs/7.PNG" alt="archi" width="500">
+<img src="./public/imgs/8.PNG" alt="archi" width="500">
