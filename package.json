@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^7.1.2",
     "drei": "0.0.72",
     "firebase": "^7.13.2",
+    "formik": "^2.2.5",
     "history": "^4.10.1",
     "material-ui-popup-state": "^1.5.4",
     "notistack": "^1.0.2",
@@ -32,7 +33,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "three": "^0.119.1",
-    "uuid": "^8.1.0"
+    "uuid": "^8.1.0",
+    "yup": "^0.32.0"
   },
   "scripts": {
     "start": "set HTTPS=true&&react-scripts start",

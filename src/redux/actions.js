@@ -98,13 +98,17 @@ export const createProject = ({ email, ...project }) => async dispatch => {
         getProject(email);
     } catch (err) {
         console.log("error creating project", err)
+        throw err
     }
 }
 
 export const deleteProject = ({ projectId, email }) => async dispatch => {
     try {
         // delete Project here 
-        getProject(email)
+        const firebaseProject = await firebase.firestore().collection(email).where("projectid", '==', projectId).get()
+        console.log("firebaseProjectfirebaseProjectfirebaseProject", firebaseProject)
+
+        // getProject(email)
     } catch (err) {
         console.log("error creating project", err)
     }
@@ -118,19 +122,19 @@ export const updateScene = (newScene) => {
 }
 
 export const addSkybox = (image) => {
-    return({
+    return ({
         type: "ADD_SKYBOX",
         image
     });
 }
 export const selectSkybox = (image) => {
-    return({
+    return ({
         type: "SELECT_SKYBOX",
         image
     });
 }
 export const deleteSkybox = (image) => {
-    return({
+    return ({
         type: "DELETE_SKYBOX",
         image
     })
