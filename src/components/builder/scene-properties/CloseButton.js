@@ -28,10 +28,10 @@ const CloseBotton = ({ sceneReducer, meshReducer, lightReducer, selectedProject 
             onClick={() => saveScene()}
             startIcon={<SaveIcon />}
             variant="contained"
-            color="secondary"
+            color="primary"
             style={{ marginTop: "2%", width: "100%" }}
         >
-            Save and Close Project
+            Close
         </Button>
     )
 }

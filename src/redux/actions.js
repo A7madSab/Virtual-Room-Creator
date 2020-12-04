@@ -151,8 +151,8 @@ export const defaultGeometry = {
     material: "Normal",
     scale: 0.3,
     color: 0xff3300,
-    castShadow: false,
-    receiveShadow: false,
+    castShadow: true,
+    receiveShadow: true,
 }
 export const defaultPoly = {
     id: "",

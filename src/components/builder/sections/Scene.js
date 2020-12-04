@@ -19,6 +19,7 @@ function Scene({ meshReducer, lightReducer, sceneReducer, asViewer }, props) {
     console.log(`/sound/${sceneReducer.sound}`)
     return (
         <Canvas
+            shadowMap
             vr={true}
             camera={{
                 fov: 80,

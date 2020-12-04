@@ -42,8 +42,8 @@ const Geometry = (props) => {
                 onClick={(event) => hovered === false ?  store.dispatch(selectMesh(props.name, "MESH")) : null}
                 rotation={state.rotation ? [state.rotation[0], state.rotation[1], state.rotation[2]] : [0,0,0]}
                 scale={[state.scale, state.scale, state.scale]}
-                castShadow={state.castShadow}
-                receiveShadow={state.receiveShadow}
+                castShadow={true}
+                receiveShadow={true}
                 {...props}
             >
                 {boxGeometry && <boxGeometry attach="geometry" args={state.dimensions} />}

@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 import { useResource, useFrame } from "react-three-fiber";
 
 import TransformControl from "./TransformControl.js"
@@ -22,17 +22,17 @@ const Light = (props) => {
             lightHelperRef.current.update();
         }
     })
-    return(
+    return (
         <>
-            { pointLight && <pointLight ref={ref} position={state.position} args={[state.color, state.intensity]}/>}
-            { directionalLight && <directionalLight ref={ref} position={state.position} args={[state.color, state.intensity]}/>}
-            { spotLight && <spotLight ref={ref} position={state.position} args={[state.color, state.intensity]}/>}
-            { ambientLight && <ambientLight ref={ref} position={state.position} args={[state.color, state.intensity]}/>}
+            { pointLight && <pointLight ref={ref} castShadow={true} position={state.position} args={[state.color, state.intensity]} />}
+            { directionalLight && <directionalLight ref={ref} castShadow={true} position={state.position} args={[state.color, state.intensity]} />}
+            { spotLight && <spotLight ref={ref} castShadow={true} position={state.position} args={[state.color, state.intensity]} />}
+            { ambientLight && <ambientLight ref={ref} castShadow={true} position={state.position} args={[state.color, state.intensity]} />}
 
-            {pointLight && light != null ? <pointLightHelper args={[light]} ref={lightHelperRef} onClick={() => hovered === false ? store.dispatch(selectLight(props.name, "Light")) : null}/> : null}
-            {directionalLight && light != null ? <directionalLightHelper args={[light]} ref={lightHelperRef} onClick={() => hovered === false ? store.dispatch(selectLight(props.name, "Light")) : null}/> : null}
-            {spotLight && light != null ? <spotLightHelper args={[light]} ref={lightHelperRef} onClick={() => hovered === false ? store.dispatch(selectLight(props.name, "Light")) : null}/> : null}
-            
+            {pointLight && light != null ? <pointLightHelper args={[light]} ref={lightHelperRef} onClick={() => hovered === false ? store.dispatch(selectLight(props.name, "Light")) : null} /> : null}
+            {directionalLight && light != null ? <directionalLightHelper args={[light]} ref={lightHelperRef} onClick={() => hovered === false ? store.dispatch(selectLight(props.name, "Light")) : null} /> : null}
+            {spotLight && light != null ? <spotLightHelper args={[light]} ref={lightHelperRef} onClick={() => hovered === false ? store.dispatch(selectLight(props.name, "Light")) : null} /> : null}
+
             {hovered ? light && <TransformControl orbit={props.orbit} light={light} /> : null}
         </>
     );
