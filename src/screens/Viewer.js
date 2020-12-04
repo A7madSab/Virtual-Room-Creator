@@ -1,7 +1,8 @@
-import React, { useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { Grid, makeStyles } from "@material-ui/core"
 
 import SceneSection from "../components/builder/sections/Scene.js"
+import Loading from "../screens/Loading"
 
 import { viewProject } from "../redux/actions"
 import { connect } from "react-redux"
@@ -20,16 +21,24 @@ const useStyle = makeStyles({
 
 const Builder = ({ viewProject, match }) => {
   const { id } = match.params
-
+  const [loading, setLoading] = useState(true)
   const classes = useStyle()
+
   useEffect(() => {
-    viewProject(id)
+    (async () => {
+      await viewProject(id)
+      setLoading(false)
+    })()
   }, [viewProject, id])
 
   return (
     <Grid container className={classes.root}>
       <Grid item xs={12}>
-        <SceneSection asViewer={true} />
+        {
+          loading
+            ? <Loading />
+            : <SceneSection asViewer={true} />
+        }
       </Grid>
     </Grid>
   )

@@ -9,6 +9,7 @@ import Profile from "../screens/Profile"
 import Builder from "../screens/Builder"
 import Viewer from "../screens/Viewer"
 import Landing from "../screens/Landing"
+import Loading from "../screens/Loading"
 
 import NavBar from "../components/Navbar"
 import PrivateRoute from "../components/PrivateRoute"
@@ -21,7 +22,7 @@ const Navigation = () => {
     const { loading } = useAuth0()
 
     if (loading) {
-        return <div />
+        return <Loading />
     }
 
     return (
