@@ -46,6 +46,8 @@ function Scene({ meshReducer, lightReducer, sceneReducer, asViewer }, props) {
             {
                 sceneReducer.sky && <Sky
                     distance={450000}
+                    inclination={0}
+                    azimuth={0.25}
                     sunPosition={[0, 1, 0]}
                 />
             }
@@ -58,7 +60,7 @@ function Scene({ meshReducer, lightReducer, sceneReducer, asViewer }, props) {
                         <PositionalAudio
                             url={`/sound/${sceneReducer.sound}`}
                             distance={1}
-                            // loop
+                        // loop
                         />
                     </mesh>
                 </Suspense>

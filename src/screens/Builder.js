@@ -1,6 +1,6 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { Grid, makeStyles, Hidden } from "@material-ui/core"
-
+import LoadingScreen from "../screens/Loading"
 import ToolsSection from "../components/builder/sections/Tools.js"
 import TabsSection from "../components/builder/sections/Tabs.js"
 import SceneSection from "../components/builder/sections/Scene.js"
@@ -23,32 +23,43 @@ const useStyle = makeStyles({
 
 const Builder = ({ openProject, match }) => {
   const { id } = match.params
+  const [Loading, setLoading] = useState(true)
   const { user } = useAuth0()
   const classes = useStyle()
 
   useEffect(() => {
-    if (user) {
-      openProject(user, id)
-    }
+    (async () => {
+      if (user) {
+        await openProject(user, id)
+        setLoading(false)
+      }
+    })()
   }, [user, openProject, id])
 
   return (
     <Grid container className={classes.root}>
-      <Hidden mdDown>
-        <Grid item xs={1} className={classes.tool}>
-          <ToolsSection />
-        </Grid>
-      </Hidden>
+      {
+        Loading
+          ? <LoadingScreen />
+          : <>
+            <Hidden mdDown>
+              <Grid item xs={1} className={classes.tool}>
+                <ToolsSection />
+              </Grid>
+            </Hidden>
 
-      <Grid item xs={9}>
-        <SceneSection asViewer={false} />
-      </Grid>
+            <Grid item xs={9}>
+              <SceneSection asViewer={false} />
+            </Grid>
 
-      <Hidden mdDown>
-        <Grid item xs={2}>
-          <TabsSection />
-        </Grid>
-      </Hidden>
+            <Hidden mdDown>
+              <Grid item xs={2}>
+                <TabsSection />
+              </Grid>
+            </Hidden>
+          </>
+
+      }
     </Grid>
   )
 }

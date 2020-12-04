@@ -6,6 +6,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { Provider } from 'react-redux'
 import store from "./redux/store"
 import auth_config from "./utils/auth_config.json"
+import { SnackbarProvider } from "notistack"
 
 import { Auth0Provider } from "./utils/react-auth0-spa";
 import history from "./utils/history";
@@ -27,7 +28,9 @@ ReactDOM.render(
         redirect_uri={window.location.origin}
         onRedirectCallback={onRedirectCallback}
       >
-        <App />
+        <SnackbarProvider maxSnack={3}>
+          <App />
+        </SnackbarProvider>
       </Auth0Provider>
     </Provider>
   </ThemeProvider>,

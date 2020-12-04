@@ -13,7 +13,7 @@ const theme = createMuiTheme({
         }
     },
     typography: {
-        fontFamily: 'Balsamiq Sans'
+        fontFamily: 'Balsamiq Sans, Roboto'
     },
     overrides: {
         MuiTextField: {

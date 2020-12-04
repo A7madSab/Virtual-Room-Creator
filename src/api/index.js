@@ -1,4 +1,4 @@
-const apiKey = "AIzaSyC3kUkF_ylvmXIPZP1mdgHDHlv8KXtEqHY"
+const apiKey = "AIzaSyCCJ40PatxwuQoWzAugoiWst3RYCWJGkYY"
 
 const _getURL = (keywords, category) => {
     const Baseurl = "https://poly.googleapis.com/v1/assets?"
