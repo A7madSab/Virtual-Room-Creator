@@ -10,6 +10,7 @@ import Builder from "../screens/Builder"
 import Viewer from "../screens/Viewer"
 import Landing from "../screens/Landing"
 import Loading from "../screens/Loading"
+import ViewerOne from "../screens/ViewerOne"
 
 import NavBar from "../components/Navbar"
 import PrivateRoute from "../components/PrivateRoute"
@@ -29,6 +30,7 @@ const Navigation = () => {
         <Router history={history}>
             <NavBar />
             <Switch>
+                <Route path="/one" component={ViewerOne} />
                 <Route exact path="/" component={Landing} />
                 <PrivateRoute path="/createProject" component={CreateProject} />
                 <PrivateRoute path="/project/:id" component={ProjectDetail} />
